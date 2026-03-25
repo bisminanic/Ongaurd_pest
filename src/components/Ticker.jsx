@@ -15,11 +15,12 @@ export default function Ticker() {
       <style>{`
         @keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
         .ticker-wrap {
-          background: ${navy};
+          background: #0d203f;
           padding: 24px 0;
           overflow: hidden;
           border-top: 4px solid ${green};
           border-bottom: 4px solid ${green};
+          max-width:100% !important;
         }
         .ticker-track {
           display: flex;

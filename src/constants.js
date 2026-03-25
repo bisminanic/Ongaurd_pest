@@ -4,7 +4,10 @@ export const green = "#5BC728";
 export const gd    = "#399e14";
 export const off   = "#f4f8f0";
 export const muted = "#5c6778";
-
+import process1 from "./Assets/inspection.png";
+import process2 from "./Assets/pest-control.png";
+import process3 from "./Assets/design (1).png";
+import process4 from "./Assets/30-days.png";
 // ─── IMAGE MAP (picsum – always loads) ───────────
 const P = (id, w, h) => `https://picsum.photos/id/${id}/${w}/${h}`;
 
@@ -76,10 +79,10 @@ export const TICKER_ITEMS = [
 
 // ─── PROCESS STEPS ────────────────────────────────
 export const STEPS = [
-  { n: "01", t: "Free Inspection",   ic: "🔍", d: "Expert visits at no cost — identifies pest species, severity, and entry points." },
-  { n: "02", t: "Custom Plan",       ic: "📋", d: "Tailored treatment based on property layout, pest type, and family safety needs." },
-  { n: "03", t: "Treatment Day",     ic: "💊", d: "Certified technicians apply targeted eco-friendly products with industry-grade equipment." },
-  { n: "04", t: "30-Day Follow-Up",  ic: "✅", d: "We verify results. Pests return within 30 days? Re-treatment at zero cost." },
+  { n: "01", t: "Free Inspection", ic: process1, type: "img", d: "..." },
+  { n: "02", t: "Custom Plan", ic: process3, type: "img", d: "..." },
+  { n: "03", t: "Treatment Day", ic: process2, type: "img", d: "..." },
+  { n: "04", t: "30-Day Follow-Up", ic:process4, type: "img", d: "..." },
 ];
 
 // ─── STATS DATA ───────────────────────────────────
