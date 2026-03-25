@@ -1,170 +1,309 @@
 /* ═══════════════════════════════════════════════════════
-   SECTION 09 — Stats
-   Animated counters + 3D mouse tilt + 3-layer parallax bg
-   Dependencies: React, GSAP, ScrollTrigger, Bootstrap 5
+   SECTION 09 — Stats (KERALA + ADVANCED PARALLAX)
 ═══════════════════════════════════════════════════════ */
+
 import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { green, IMG, STATS } from "../constants";
+import { IMG } from "../constants";
 
 gsap.registerPlugin(ScrollTrigger);
 
-/* ── Animated Counter ── */
+const G = "#3ade6e";
+
+/* ── DATA ── */
+const STATS = [
+  {
+    n: 15,
+    suf: "+",
+    label: "Years Experience",
+    sub: "Serving Kerala homes & businesses since 2009",
+    bar: 75,
+  },
+  {
+    n: 10000,
+    suf: "+",
+    label: "Pests Eliminated",
+    sub: "Across homes & commercial spaces",
+    bar: 100,
+  },
+  {
+    n: 500,
+    suf: "+",
+    label: "Happy Clients",
+    sub: "With 4.9★ average rating",
+    bar: 82,
+  },
+  {
+    n: 98,
+    suf: "%",
+    label: "Success Rate",
+    sub: "First-treatment guarantee",
+    bar: 98,
+  },
+];
+
+/* ── Counter ── */
 function Counter({ to, suf = "" }) {
   const [val, setVal] = useState(0);
-  const ref  = useRef();
+  const ref = useRef();
   const done = useRef(false);
 
   useEffect(() => {
-    const obs = new IntersectionObserver(([e]) => {
-      if (e.isIntersecting && !done.current) {
-        done.current = true;
-        gsap.to({ n: 0 }, {
-          n: to, duration: 2.8, ease: "power2.out",
-          onUpdate: function () { setVal(Math.round(this.targets()[0].n)); },
-        });
-      }
-    }, { threshold: 0.6 });
+    const obs = new IntersectionObserver(
+      ([e]) => {
+        if (e.isIntersecting && !done.current) {
+          done.current = true;
+          gsap.to(
+            { n: 0 },
+            {
+              n: to,
+              duration: 2.5,
+              onUpdate: function () {
+                setVal(Math.round(this.targets()[0].n));
+              },
+            },
+          );
+        }
+      },
+      { threshold: 0.5 },
+    );
+
     obs.observe(ref.current);
     return () => obs.disconnect();
   }, [to]);
 
-  return <span ref={ref}>{val.toLocaleString()}{suf}</span>;
+  return (
+    <span ref={ref}>
+      {val.toLocaleString()}
+      {suf}
+    </span>
+  );
 }
 
-/* ── Stats Section ── */
-export default function Stats() {
-  const secRef  = useRef();
-  const l1Ref   = useRef(), l2Ref = useRef(), mistRef = useRef();
-  const cardRefs = useRef([]);
+/* ── Progress Bar ── */
+function Bar({ pct }) {
+  const [w, setW] = useState(0);
+  const ref = useRef();
 
   useEffect(() => {
-    /* ── 3-layer parallax ── */
-    const tick = () => {
-      if (!secRef.current) return;
-      const rect = secRef.current.getBoundingClientRect();
-      const mid  = window.innerHeight / 2 - rect.top - rect.height / 2;
-      gsap.set(l1Ref.current,   { y: mid * 0.45  });
-      gsap.set(l2Ref.current,   { y: mid * 0.28  });
-      gsap.set(mistRef.current, { y: mid * -0.2  });
-    };
-    window.addEventListener("scroll", tick, { passive: true });
+    const obs = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) setW(pct);
+    });
+    obs.observe(ref.current);
+  }, [pct]);
 
-    /* ── card entrance ── */
-    gsap.fromTo(cardRefs.current,
-      { scale: 0.78, y: 62, opacity: 0 },
-      { scale: 1, y: 0, opacity: 1, duration: 0.9, stagger: 0.13, ease: "back.out(1.8)",
-        scrollTrigger: { trigger: secRef.current, start: "top 72%" } }
-    );
+  return (
+    <div
+      ref={ref}
+      style={{
+        height: 3,
+        background: "rgba(255,255,255,.1)",
+        marginTop: 15,
+      }}
+    >
+      <div
+        style={{
+          width: `${w}%`,
+          height: "100%",
+          background: G,
+          transition: "1.5s",
+        }}
+      />
+    </div>
+  );
+}
 
-    /* ── 3D mouse tilt per card ── */
-    cardRefs.current.forEach((c) => {
-      if (!c) return;
-      c.addEventListener("mousemove", (e) => {
-        const r = c.getBoundingClientRect();
-        const x = (e.clientX - r.left) / r.width  - 0.5;
-        const y = (e.clientY - r.top)  / r.height - 0.5;
-        gsap.to(c, { rotateY: x * 18, rotateX: -y * 18, scale: 1.06,
-          duration: 0.42, ease: "power2.out", transformPerspective: 700 });
+export default function Stats() {
+  const secRef = useRef();
+  const l1Ref = useRef();
+  const l2Ref = useRef();
+
+  /* ── PARALLAX + MOUSE ── */
+  useEffect(() => {
+    // mouse movement
+    const handleMove = (e) => {
+      const x = e.clientX / window.innerWidth - 0.5;
+      const y = e.clientY / window.innerHeight - 0.5;
+
+      gsap.to(l1Ref.current, {
+        x: x * 40,
+        y: y * 40,
+        scale: 1.1,
+        duration: 1.2,
       });
-      c.addEventListener("mouseleave", () =>
-        gsap.to(c, { rotateY: 0, rotateX: 0, scale: 1, duration: 0.7, ease: "power3.out" })
-      );
+
+      gsap.to(l2Ref.current, {
+        x: x * 20,
+        y: y * 20,
+        scale: 1.05,
+        duration: 1.2,
+      });
+    };
+
+    window.addEventListener("mousemove", handleMove);
+
+    // scroll parallax
+    gsap.to(l1Ref.current, {
+      yPercent: 15,
+      scrollTrigger: {
+        trigger: secRef.current,
+        scrub: true,
+      },
     });
 
-    return () => window.removeEventListener("scroll", tick);
+    gsap.to(l2Ref.current, {
+      yPercent: 8,
+      scrollTrigger: {
+        trigger: secRef.current,
+        scrub: true,
+      },
+    });
+
+    // floating animation
+    gsap.to(l1Ref.current, {
+      y: "+=20",
+      duration: 6,
+      repeat: -1,
+      yoyo: true,
+    });
+
+    gsap.to(l2Ref.current, {
+      y: "-=15",
+      duration: 5,
+      repeat: -1,
+      yoyo: true,
+    });
+
+    return () => {
+      window.removeEventListener("mousemove", handleMove);
+    };
+  }, []);
+
+  /* ── CURSOR GLOW ── */
+  useEffect(() => {
+    const glow = document.querySelector(".cursor-glow");
+
+    const moveGlow = (e) => {
+      gsap.to(glow, {
+        x: e.clientX,
+        y: e.clientY,
+        duration: 0.3,
+      });
+    };
+
+    window.addEventListener("mousemove", moveGlow);
+    return () => window.removeEventListener("mousemove", moveGlow);
   }, []);
 
   return (
     <>
       <style>{`
-        #stats { position:relative; padding:140px 60px; overflow:hidden; }
-
-        .stats-layer { position:absolute; inset:-25% 0 -25%; will-change:transform; }
-        .stats-layer img { width:100%; height:100%; object-fit:cover; }
-        .stats-overlay { position:absolute; inset:0; background:rgba(7,14,36,.93); z-index:2; }
-        .stats-mist {
-          position:absolute; inset:0; z-index:3; pointer-events:none; will-change:transform;
-          background:radial-gradient(ellipse at 50% 100%,rgba(91,199,40,.08) 0%,transparent 60%);
-        }
-        .stats-content { position:relative; z-index:4; max-width:1220px; margin:0 auto; }
-
-        .stat-card {
-          background:rgba(255,255,255,.05);
-          border:1px solid rgba(91,199,40,.18);
-          border-radius:20px; padding:50px 24px;
-          text-align:center; backdrop-filter:blur(16px);
-          transition:border-color .3s, background .3s, box-shadow .3s;
-          transform-style:preserve-3d; cursor:default;
-          height:100%;
-        }
-        .stat-card:hover {
-          background:rgba(91,199,40,.15);
-          border-color:${green};
-          box-shadow:0 0 60px rgba(91,199,40,.16);
-        }
-        .stat-num {
-          font-family:'Lato',sans-serif;
-          font-size:clamp(40px,5vw,66px);
-          font-weight:900; color:${green}; line-height:1;
-          margin-bottom:12px;
-        }
-        .stat-label {
-          font-family:'Lato',sans-serif;
-          font-size:15px; font-weight:700; color:#fff;
+        #stats9 {
+          position: relative;
+          padding: 120px 40px;
+          overflow: hidden;
+          color: #fff;
         }
 
-        @media(max-width:600px){ #stats{ padding:90px 20px !important; } }
+        .st9-layer {
+          position: absolute;
+          inset: -20%;
+        }
+
+        .st9-layer img {
+          width: 110%;
+          height: 110%;
+          object-fit: cover;
+        }
+
+        .overlay {
+          position: absolute;
+          inset: 0;
+          background: rgba(0,0,0,0.85);
+        }
+
+        .content {
+          position: relative;
+          z-index: 2;
+          text-align: center;
+        }
+
+        .cards {
+          display: grid;
+          grid-template-columns: repeat(4,1fr);
+          gap: 20px;
+          margin-top: 60px;
+        }
+
+        .card {
+          padding: 30px;
+          border-radius: 12px;
+          background: rgba(255,255,255,0.05);
+        }
+
+        .num {
+          font-size: 40px;
+          color: ${G};
+          font-weight: bold;
+        }
+        .card h4 {
+  color: #fff;
+}
+
+.card p {
+  color: rgba(255,255,255,0.7);
+}
+
+        .cursor-glow {
+          position: absolute;
+          width: 300px;
+          height: 300px;
+          background: radial-gradient(circle, rgba(58,222,110,.2), transparent);
+          border-radius: 50%;
+          pointer-events: none;
+          z-index: 1;
+        }
+
+        @media(max-width:900px){
+          .cards{grid-template-columns:repeat(2,1fr);}
+        }
+
+        @media(max-width:500px){
+          .cards{grid-template-columns:1fr;}
+        }
       `}</style>
 
-      <section id="stats" ref={secRef}>
-
-        {/* L1 forest */}
-        <div ref={l1Ref} className="stats-layer" style={{ zIndex:0 }}>
+      <section id="stats9" ref={secRef}>
+        {/* BG */}
+        <div ref={l1Ref} className="st9-layer">
           <img src={IMG.statsBg} alt="" />
         </div>
 
-        {/* L2 blended */}
-        <div ref={l2Ref} className="stats-layer"
-          style={{ zIndex:1, mixBlendMode:"multiply", opacity:0.4 }}>
+        <div ref={l2Ref} className="st9-layer">
           <img src={IMG.processBg} alt="" />
         </div>
 
-        <div className="stats-overlay" />
-        <div ref={mistRef} className="stats-mist" />
+        <div className="overlay" />
+        <div className="cursor-glow" />
 
-        <div className="stats-content">
+        <div className="content">
+          <h2>
+            Why Kerala Trusts <span style={{ color: G }}>OnGuard</span>
+          </h2>
 
-          {/* Header */}
-          <div className="text-center mb-5">
-            <div className="d-flex align-items-center justify-content-center gap-3 mb-3">
-              <div style={{ width:44, height:3, background:green, borderRadius:2 }} />
-              <span style={{ fontFamily:"'Lato',sans-serif", fontSize:12, fontWeight:700,
-                letterSpacing:2.2, color:green, textTransform:"uppercase" }}>By The Numbers</span>
-              <div style={{ width:44, height:3, background:green, borderRadius:2 }} />
-            </div>
-            <h2 style={{ fontFamily:"'Lato',sans-serif", fontSize:"clamp(28px,4.5vw,64px)",
-              fontWeight:900, color:"#fff", margin:0, letterSpacing:-0.8 }}>
-              Why Delhi NCR Trusts <span style={{ color:green }}>OnGuard</span>
-            </h2>
-          </div>
-
-          {/* Stat Cards */}
-          <div className="row g-4">
+          <div className="cards">
             {STATS.map((s, i) => (
-              <div key={i} className="col-6 col-lg-3">
-                <div className="stat-card" ref={(el) => (cardRefs.current[i] = el)}>
-                  <div style={{ fontSize: 40, marginBottom: 16 }}>{s.ic}</div>
-                  <div className="stat-num">
-                    <Counter to={s.n} suf={s.suf} />
-                  </div>
-                  <div className="stat-label">{s.label}</div>
+              <div className="card" key={i}>
+                <div className="num">
+                  <Counter to={s.n} suf={s.suf} />
                 </div>
+                <h4>{s.label}</h4>
+                <p>{s.sub}</p>
+                <Bar pct={s.bar} />
               </div>
             ))}
           </div>
-
         </div>
       </section>
     </>
