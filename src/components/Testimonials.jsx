@@ -54,7 +54,7 @@ export default function Testimonials() {
   return (
     <>
       <style>{`
-        #testimonials { position:relative; padding:140px 60px; overflow:hidden; }
+        #review { position:relative; padding:140px 60px; overflow:hidden; }
 
         .testi-layer { position:absolute; inset:-22% 0 -22%; will-change:transform; }
         .testi-layer img { width:100%; height:100%; object-fit:cover; }
@@ -91,7 +91,7 @@ export default function Testimonials() {
         }
       `}</style>
 
-      <section id="testimonials" ref={secRef}>
+      <section id="review" ref={secRef}>
 
         {/* L1 warm indoor */}
         <div ref={l1Ref} className="testi-layer" style={{ zIndex:0 }}>

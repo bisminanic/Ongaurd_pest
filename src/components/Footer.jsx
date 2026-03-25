@@ -10,7 +10,7 @@ import { green, navy } from "../constants";
 export default function Footer() {
   const services = ["🪳 Cockroach Control","🐀 Rodent Control","🦟 Mosquito Control","🐜 Termite Treatment","🛏️ Bed Bug Treatment"];
   const company  = ["About Us","Our Process","Certifications","Blog","Careers"];
-  const contact  = ["+91 98765 43210","info@onguardpest.com","Delhi · Noida · Gurgaon","Faridabad · Gr. Noida"];
+  const contact  = ["+91 98765 43210","info@onguardpest.com","Thiruvananthapuram · Kochi · Kollam","Kozhikode · Thrissur. Iduki"];
   const socials  = ["F","IN","TW","YT"];
 
   const linkStyle = {
@@ -96,7 +96,7 @@ export default function Footer() {
               </div>
               <p style={{ fontFamily:"'Lato',sans-serif", fontSize:13,
                 color:"rgba(255,255,255,.27)", lineHeight:1.9, maxWidth:238, marginBottom:24 }}>
-                Delhi NCR's trusted pest control experts since 2010. Eco-friendly, certified, always on guard.
+               Kerala’s trusted pest control experts since 2010. Eco-friendly, certified, always on guard.
               </p>
               <div className="d-flex gap-2">
                 {socials.map((s) => (

@@ -6,7 +6,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { IMG } from "../constants";
-
+import imag1 from "../Assets/whytrust.png"
 gsap.registerPlugin(ScrollTrigger);
 
 const G = "#3ade6e";
@@ -239,7 +239,7 @@ export default function Stats() {
         .card {
           padding: 30px;
           border-radius: 12px;
-          background: rgba(255,255,255,0.05);
+          background: rgb(157 255 165 / 16%);
         }
 
         .num {
@@ -277,11 +277,11 @@ export default function Stats() {
       <section id="stats9" ref={secRef}>
         {/* BG */}
         <div ref={l1Ref} className="st9-layer">
-          <img src={IMG.statsBg} alt="" />
+          <img src={imag1} alt="" />
         </div>
 
         <div ref={l2Ref} className="st9-layer">
-          <img src={IMG.processBg} alt="" />
+          <img src={imag1} alt="" />
         </div>
 
         <div className="overlay" />

@@ -65,7 +65,7 @@ export default function Contact() {
   const contactInfo = [
     ["📞", "Call Us",       "+91 98765 43210"],
     ["✉️", "Email",         "info@onguardpest.com"],
-    ["📍", "Service Area",  "Delhi, Noida, Gurgaon, Faridabad, Greater Noida"],
+    ["📍", "Service Area",  "Thiruvananthapuram, Kochi, Kozhikode, Thrissur, Kollam"],
     ["⏰", "Hours",         "Mon–Sun 7AM – 9PM | Emergency 24/7"],
   ];
 
@@ -227,11 +227,11 @@ export default function Contact() {
                       </div>
 
                       <button className="form-submit-btn" onClick={()=>setDone(true)}>
-                        🔍 Book Free Inspection Now
+                        Book Free Inspection Now
                       </button>
                       <p style={{ textAlign:"center", fontFamily:"'Lato',sans-serif",
                         fontSize:12, color:muted, marginTop:16 }}>
-                        🔒 100% confidential. No spam, ever.
+                        100% confidential. No spam, ever.
                       </p>
                     </div>
                   )}
