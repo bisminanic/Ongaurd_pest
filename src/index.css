@@ -1,0 +1,65 @@
+/* ─── Global Reset & Base ──────────────────────────── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: #f4f8f0;
+  overflow-x: hidden;
+  font-family: 'Lato', sans-serif;
+}
+
+/* ─── Google Font ───────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,300;1,400;1,700&display=swap');
+
+/* ─── Scrollbar ─────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #0a1628; }
+::-webkit-scrollbar-thumb { background: #5BC728; border-radius: 4px; }
+
+/* ─── Selection ─────────────────────────────────────── */
+::selection { background: #5BC728; color: #fff; }
+
+/* ─── Custom Cursor (pointer devices only) ──────────── */
+@media (pointer: fine) {
+  body { cursor: none; }
+}
+
+/* ─── Bootstrap 5 Overrides ─────────────────────────── */
+/* Remove default button outline */
+button:focus { outline: none; box-shadow: none; }
+
+/* Remove Bootstrap default link styles */
+a { text-decoration: none; }
+.LogoStyle{
+  height: 70px;
+    width: 130px;
+}
+/* Cursor Dot */
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  background: #5BC728;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+}
+
+/* Cursor Ring */
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 35px;
+  height: 35px;
+  border: 2px solid rgba(91,199,40,0.5);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: transform 0.15s ease-out, width 0.2s, height 0.2s;
+}
