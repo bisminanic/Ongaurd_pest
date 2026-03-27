@@ -1,14 +1,20 @@
 /* ═══════════════════════════════════════════════════════
    App.jsx — Root component
-   Assembles all 12 section components in order
+   ✦ Loader (image preloader)
+   ✦ Lenis smooth scroll  →  npm install lenis
+   ✦ GSAP ScrollTrigger proxy for Lenis
 ═══════════════════════════════════════════════════════ */
 import React, { useEffect } from "react";
+import Lenis from "lenis";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-/* Import Bootstrap 5 CSS */
+/* Bootstrap */
 import "bootstrap/dist/css/bootstrap.min.css";
-
-/* Global styles */
 import "./index.css";
+
+/* Loader */
+import Loader from "./components/Loader";
 
 /* Section components */
 import Navbar        from "./components/Navbar";
@@ -24,20 +30,56 @@ import Testimonials  from "./components/Testimonials";
 import Contact       from "./components/Contact";
 import Footer        from "./components/Footer";
 
+gsap.registerPlugin(ScrollTrigger);
+
 export default function App() {
+
+  /* ── Lenis smooth scroll + GSAP proxy ── */
   useEffect(() => {
-    const dot = document.querySelector(".cursor-dot");
+    const lenis = new Lenis({
+      duration: 1.2,          /* scroll speed feel              */
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: "vertical",
+      gestureOrientation: "vertical",
+      smoothWheel: true,
+      wheelMultiplier: 1,
+      touchMultiplier: 2,
+    });
+
+    /* Proxy so ScrollTrigger uses Lenis scroll position */
+    lenis.on("scroll", ScrollTrigger.update);
+
+    gsap.ticker.add((time) => lenis.raf(time * 1000));
+    gsap.ticker.lagSmoothing(0);
+
+    /* Re-calculate ScrollTrigger after loader completes */
+    const onLoaderDone = () => {
+      ScrollTrigger.refresh();
+    };
+    window.addEventListener("loaderDone", onLoaderDone);
+
+    return () => {
+      lenis.destroy();
+      gsap.ticker.remove((time) => lenis.raf(time * 1000));
+      window.removeEventListener("loaderDone", onLoaderDone);
+    };
+  }, []);
+
+  /* ── Custom cursor ── */
+  useEffect(() => {
+    const dot  = document.querySelector(".cursor-dot");
     const ring = document.querySelector(".cursor-ring");
+    if (!dot || !ring) return;
 
     let mouseX = 0, mouseY = 0;
-    let ringX = 0, ringY = 0;
+    let ringX  = 0, ringY  = 0;
+    let rafId;
 
     const move = (e) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
-
       dot.style.left = mouseX + "px";
-      dot.style.top = mouseY + "px";
+      dot.style.top  = mouseY + "px";
     };
 
     window.addEventListener("mousemove", move);
@@ -45,36 +87,38 @@ export default function App() {
     const animate = () => {
       ringX += (mouseX - ringX) * 0.15;
       ringY += (mouseY - ringY) * 0.15;
-
       ring.style.left = ringX + "px";
-      ring.style.top = ringY + "px";
-
-      requestAnimationFrame(animate);
+      ring.style.top  = ringY + "px";
+      rafId = requestAnimationFrame(animate);
     };
-
     animate();
 
     return () => {
       window.removeEventListener("mousemove", move);
+      cancelAnimationFrame(rafId);
     };
   }, []);
 
   return (
     <>
-     <div className="cursor-dot"></div>
-      <div className="cursor-ring"></div>
-      <Navbar />        {/* 01 — Fixed sticky navigation          */}
-      <Hero />          {/* 02 — Full screen 6-layer parallax hero */}
-      <Services />      {/* 03 — 6 cards with inner image parallax */}
-      <Strip1 />        {/* 04 — Full-bleed action banner           */}
-      <Ticker />        {/* 05 — Infinite CSS marquee               */}
-      <About />         {/* 06 — 5-layer image parallax about       */}
-      <Process />       {/* 07 — 4-step process cards               */}
-      <Strip2 />        {/* 08 — 30-day guarantee banner            */}
-      <Stats />         {/* 09 — Animated counters + 3D tilt        */}
-      <Testimonials />  {/* 10 — Auto-rotating reviews              */}
-      <Contact />       {/* 11 — Booking form + contact info        */}
-      <Footer />        {/* 12 — 4-column footer + FAB call button  */}
+      {/* ── Loader (renders on top, fades out when images ready) ── */}
+      <Loader />
+
+      <div className="cursor-dot"  />
+      <div className="cursor-ring" />
+
+      <Navbar />
+      <Hero />
+      <Services />
+      <Strip1 />
+      <Ticker />
+      <About />
+      <Process />
+      <Strip2 />
+      <Stats />
+      <Testimonials />
+      <Contact />
+      <Footer />
     </>
   );
 }
