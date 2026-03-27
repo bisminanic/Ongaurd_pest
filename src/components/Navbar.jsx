@@ -60,7 +60,7 @@ export default function Navbar() {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
-  const links = ["services", "about", "process","Blog","review", "contact"];
+  const links = ["about","services",  "process","Blog","review", "contact"];
 
   return (
     <>

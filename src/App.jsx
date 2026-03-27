@@ -109,10 +109,11 @@ export default function App() {
 
       <Navbar />
       <Hero />
-      <Services />
+      <About />
+    
       <Strip1 />
       <Ticker />
-      <About />
+        <Services />
       <Process />
       <Strip2 />
       <Stats />
