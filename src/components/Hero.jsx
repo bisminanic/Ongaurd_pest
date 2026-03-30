@@ -100,10 +100,9 @@ export default function Hero() {
     gsap.set(
       [
         badge.current,
-        availRef.current,
+        
         subRef.current,
         subRef1.current,
-
         ctaRef.current,
       ],
       { autoAlpha: 0, y: 22 },
@@ -120,97 +119,31 @@ export default function Hero() {
 
     const tl = gsap.timeline({ delay: 0.2 });
 
-    // 1 ▸ Cinematic lights-up overlay
     tl.to(ov1.current, { opacity: 0.85, duration: 1.6, ease: "power2.inOut" });
-
-    // 2 ▸ Rings pulse in
     tl.to(
       [ring1.current, ring2.current, ring3.current],
-      {
-        autoAlpha: 1,
-        scale: 1,
-        duration: 1.4,
-        ease: "expo.out",
-        stagger: 0.15,
-      },
+      { autoAlpha: 1, scale: 1, duration: 1.4, ease: "expo.out", stagger: 0.15 },
       "-=1.2",
     );
-
-    // 3 ▸ Badge pop
-    tl.to(
-      badge.current,
-      { autoAlpha: 1, y: 0, duration: 0.6, ease: "back.out(1.7)" },
-      "-=0.9",
-    );
-    tl.to(
-      subRef1.current,
-      { autoAlpha: 1, y: 0, duration: 0.6, ease: "back.out(1.7)" },
-      "-=0.9",
-    );
-    // 4 ▸ City ticker
-    tl.to(
-      availRef.current,
-      { autoAlpha: 1, y: 0, duration: 0.55, ease: "power3.out" },
-      "-=0.4",
-    );
-
-    // 5 ▸ H1 words stagger
+    tl.to(badge.current, { autoAlpha: 1, y: 0, duration: 0.6, ease: "back.out(1.7)" }, "-=0.9");
+    tl.to(subRef1.current, { autoAlpha: 1, y: 0, duration: 0.6, ease: "back.out(1.7)" }, "-=0.9");
+    // tl.to(availRef.current, { autoAlpha: 1, y: 0, duration: 0.55, ease: "power3.out" }, "-=0.4");
     tl.to(
       h1Words.current,
-      {
-        autoAlpha: 1,
-        y: 0,
-        rotateX: 0,
-        duration: 0.75,
-        ease: "expo.out",
-        stagger: 0.09,
-      },
+      { autoAlpha: 1, y: 0, rotateX: 0, duration: 0.75, ease: "expo.out", stagger: 0.09 },
       "-=0.3",
     );
-
-    // 6 ▸ Subtitle
-    tl.to(
-      subRef.current,
-      { autoAlpha: 1, y: 0, duration: 0.6, ease: "power3.out" },
-      "-=0.25",
-    );
-
-    // 7 ▸ CTA buttons
-    tl.to(
-      ctaRef.current,
-      { autoAlpha: 1, y: 0, duration: 0.55, ease: "power3.out" },
-      "-=0.35",
-    );
-
-    // 8 ▸ Data cards stagger right-to-left
+    tl.to(subRef.current, { autoAlpha: 1, y: 0, duration: 0.6, ease: "power3.out" }, "-=0.25");
+    tl.to(ctaRef.current, { autoAlpha: 1, y: 0, duration: 0.55, ease: "power3.out" }, "-=0.35");
     tl.to(
       cardRefs.current,
-      {
-        autoAlpha: 1,
-        x: 0,
-        y: 0,
-        duration: 0.75,
-        ease: "expo.out",
-        stagger: 0.12,
-      },
+      { autoAlpha: 1, x: 0, y: 0, duration: 0.75, ease: "expo.out", stagger: 0.12 },
       "-=0.9",
     );
-
-    // 9 ▸ Stats bar
-    tl.to(
-      statsBar.current,
-      { autoAlpha: 1, y: 0, duration: 0.65, ease: "power3.out" },
-      "-=0.5",
-    );
+    tl.to(statsBar.current, { autoAlpha: 1, y: 0, duration: 0.65, ease: "power3.out" }, "-=0.5");
     tl.to(
       statItems.current,
-      {
-        autoAlpha: 1,
-        y: 0,
-        duration: 0.45,
-        ease: "back.out(1.5)",
-        stagger: 0.1,
-      },
+      { autoAlpha: 1, y: 0, duration: 0.45, ease: "back.out(1.5)", stagger: 0.1 },
       "-=0.5",
     );
 
@@ -236,37 +169,15 @@ export default function Hero() {
         end: "bottom top",
         scrub: 1.3,
         onUpdate: (self) => {
-          const p = self.progress,
-            sy = p * vh;
+          const p = self.progress, sy = p * vh;
           gsap.set(bgL1.current, { y: sy * 0.55, x: mouse.x * -18 });
-          gsap.set(orb1.current, {
-            y: -sy * 0.5 + mouse.y * 28,
-            x: mouse.x * 55,
-          });
-          gsap.set(orb2.current, {
-            y: -sy * 0.35 + mouse.y * 18,
-            x: mouse.x * -38,
-          });
-          gsap.set(orb3.current, {
-            y: -sy * 0.45 + mouse.y * 22,
-            x: mouse.x * 30,
-          });
-          gsap.set(ring1.current, {
-            y: -sy * 0.6 + mouse.y * -14,
-            x: mouse.x * 24,
-          });
-          gsap.set(ring3.current, {
-            y: -sy * 0.7 + mouse.y * 10,
-            x: mouse.x * -18,
-          });
-          gsap.set(cards.current, {
-            y: sy * 0.22 + mouse.y * 9,
-            x: mouse.x * 10,
-          });
-          gsap.set(txtWrap.current, {
-            y: sy * 0.1,
-            opacity: Math.max(1 - p * 1.7, 0),
-          });
+          gsap.set(orb1.current, { y: -sy * 0.5 + mouse.y * 28, x: mouse.x * 55 });
+          gsap.set(orb2.current, { y: -sy * 0.35 + mouse.y * 18, x: mouse.x * -38 });
+          gsap.set(orb3.current, { y: -sy * 0.45 + mouse.y * 22, x: mouse.x * 30 });
+          gsap.set(ring1.current, { y: -sy * 0.6 + mouse.y * -14, x: mouse.x * 24 });
+          gsap.set(ring3.current, { y: -sy * 0.7 + mouse.y * 10, x: mouse.x * -18 });
+          gsap.set(cards.current, { y: sy * 0.22 + mouse.y * 9, x: mouse.x * 10 });
+          gsap.set(txtWrap.current, { y: sy * 0.1, opacity: Math.max(1 - p * 1.7, 0) });
         },
       });
     }, secRef);
@@ -288,24 +199,19 @@ export default function Hero() {
     ["Service.", green],
   ];
 
-  const keralaCities = [
-    "Trivandrum",
-    "Kochi",
-    "Kozhikode",
-    "Thrissur",
-    "Palakkad",
-    "Kannur",
-    "Kollam",
-    "Kottayam",
-    "Malappuram",
-    "Wayanad",
+  // ── UPDATED: All Kerala + South Tamil Nadu branches ──
+  const serviceCities = [
+    "Ernakulam", "Kozhikode", "Trivandrum", "Thrissur", "Palakkad",
+    "Kannur", "Kollam", "Kottayam", "Malappuram", "Wayanad",
+    "Nagercoil", "Thirunelveli", "Chennai",
   ];
 
+  // ── UPDATED: 24 hrs working, accurate stats ──
   const stats = [
     [icon1, "15+", "Years in Kerala"],
     [icon2, "10K+", "Pests Eliminated"],
     [icon3, "500+", "Happy Families"],
-    [icon4, "24/7", "Emergency Line"],
+    [icon4, "24 Hrs", "Always Open"],
   ];
 
   const ratingBars = [
@@ -322,6 +228,9 @@ export default function Hero() {
     "Rodent Management",
     "Mosquito Fogging",
   ];
+
+  // ── UPDATED: Branch locations from image ──
+  const branches = ["Ernakulam", "Kozhikode", "Nagercoil", "Thirunelveli", "Chennai"];
 
   return (
     <>
@@ -349,7 +258,6 @@ export default function Hero() {
         .hero-orb  { position:absolute; border-radius:50%; pointer-events:none; will-change:transform; }
         .hero-ring { position:absolute; border-radius:50%; pointer-events:none; will-change:transform; }
 
-        /* text */
         .hero-txt { position:relative; z-index:8; will-change:transform,opacity; }
         .hero-badge {
           display:inline-flex; align-items:center; gap:10px;
@@ -372,7 +280,7 @@ export default function Hero() {
           background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);
           border-radius:6px;padding:7px 0;backdrop-filter:blur(10px);
         }
-        .ticker-track { display:inline-flex;white-space:nowrap;animation:ticker 22s linear infinite; }
+        .ticker-track { display:inline-flex;white-space:nowrap;animation:ticker 28s linear infinite; }
         .ticker-item {
           display:inline-flex;align-items:center;gap:5px;padding:0 18px;
           font-family:'Lato',sans-serif;font-size:11px;font-weight:700;
@@ -397,12 +305,14 @@ export default function Hero() {
         .btn-outline-og:hover { background:rgba(255,255,255,.18);border-color:#fff; }
 
         /* ─── DATA CARDS ─── */
-        .hc-panel { display: grid;
-    flex-direction: column;
-    gap: 10px;
-    will-change: transform;
-    width: 465px;
-    grid-template-columns: 1fr 1fr; }
+        .hc-panel {
+          display: grid;
+          flex-direction: column;
+          gap: 10px;
+          will-change: transform;
+          width: 465px;
+          grid-template-columns: 1fr 1fr;
+        }
 
         .hc-card {
           background:rgba(6,16,44,.74);
@@ -480,7 +390,9 @@ export default function Hero() {
         }
         .hc-cert-name { font-family:'Lato',sans-serif;font-size:13px;font-weight:900;color:#fff; }
         .hc-cert-sub { font-family:'Lato',sans-serif;font-size:10px;color:rgba(255,255,255,.4);margin-top:3px;line-height:1.4; }
-.kerala-avail {
+
+        /* ── UPDATED availability tag ── */
+        .kerala-avail {
           display:inline-flex; align-items:center; gap:8px;
           background:rgba(255,255,255,.1);
           border:1px solid rgba(255,255,255,.2);
@@ -494,6 +406,7 @@ export default function Hero() {
           width:6px; height:6px; border-radius:50%;
           background:${green}; animation:pulse 2s infinite;
         }
+
         /* Stats bar */
         .stats-bar {
           position:absolute;bottom:0;left:0;right:0;z-index:10;
@@ -525,23 +438,18 @@ export default function Hero() {
         <div
           className="hero-layer"
           style={{
-            inset: 0,
-            zIndex: 2,
-            pointerEvents: "none",
-            background:
-              "radial-gradient(ellipse 65% 85% at 16% 58%,rgba(0,70,40,.3) 0%,transparent 62%)",
+            inset: 0, zIndex: 2, pointerEvents: "none",
+            background: "radial-gradient(ellipse 65% 85% at 16% 58%,rgba(0,70,40,.3) 0%,transparent 62%)",
           }}
         />
 
-        {/* ── Dark overlay (starts fully dark → cinema effect) ── */}
+        {/* ── Dark overlay ── */}
         <div
           ref={ov1}
           className="hero-layer"
           style={{
-            inset: 0,
-            zIndex: 3,
-            background:
-              "linear-gradient(108deg,rgba(4,10,28,.97) 0%,rgba(8,32,68,.78) 50%,rgba(4,10,28,.16) 100%)",
+            inset: 0, zIndex: 3,
+            background: "linear-gradient(108deg,rgba(4,10,28,.97) 0%,rgba(8,32,68,.78) 50%,rgba(4,10,28,.16) 100%)",
           }}
         />
 
@@ -549,10 +457,7 @@ export default function Hero() {
         <div
           className="hero-layer"
           style={{
-            inset: 0,
-            zIndex: 4,
-            opacity: 0.025,
-            pointerEvents: "none",
+            inset: 0, zIndex: 4, opacity: 0.025, pointerEvents: "none",
             backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
             backgroundSize: "200px",
           }}
@@ -562,114 +467,32 @@ export default function Hero() {
         <div
           className="hero-layer"
           style={{
-            bottom: 82,
-            left: 0,
-            width: "40%",
-            height: "3px",
-            zIndex: 7,
-            pointerEvents: "none",
+            bottom: 82, left: 0, width: "40%", height: "3px", zIndex: 7, pointerEvents: "none",
             background: `linear-gradient(90deg,${green} 0%,rgba(91,199,40,0) 100%)`,
           }}
         />
 
         {/* ── Orbs ── */}
-        <div
-          ref={orb1}
-          className="hero-orb"
-          style={{
-            top: "5%",
-            right: "3%",
-            width: 520,
-            height: 520,
-            zIndex: 5,
-            background:
-              "radial-gradient(circle,rgba(91,199,40,.13) 0%,transparent 65%)",
-          }}
-        />
-        <div
-          ref={orb2}
-          className="hero-orb"
-          style={{
-            bottom: "15%",
-            left: "2%",
-            width: 330,
-            height: 330,
-            zIndex: 5,
-            background:
-              "radial-gradient(circle,rgba(0,90,50,.2) 0%,transparent 65%)",
-          }}
-        />
-        <div
-          ref={orb3}
-          className="hero-orb"
-          style={{
-            top: "42%",
-            right: "32%",
-            width: 210,
-            height: 210,
-            zIndex: 5,
-            background:
-              "radial-gradient(circle,rgba(27,58,107,.18) 0%,transparent 65%)",
-          }}
-        />
+        <div ref={orb1} className="hero-orb" style={{ top: "5%", right: "3%", width: 520, height: 520, zIndex: 5, background: "radial-gradient(circle,rgba(91,199,40,.13) 0%,transparent 65%)" }} />
+        <div ref={orb2} className="hero-orb" style={{ bottom: "15%", left: "2%", width: 330, height: 330, zIndex: 5, background: "radial-gradient(circle,rgba(0,90,50,.2) 0%,transparent 65%)" }} />
+        <div ref={orb3} className="hero-orb" style={{ top: "42%", right: "32%", width: 210, height: 210, zIndex: 5, background: "radial-gradient(circle,rgba(27,58,107,.18) 0%,transparent 65%)" }} />
 
         {/* ── Rings ── */}
-        <div
-          ref={ring1}
-          className="hero-ring ring-spin"
-          style={{
-            top: "11%",
-            right: "15%",
-            width: 300,
-            height: 300,
-            zIndex: 5,
-            border: "1px dashed rgba(91,199,40,.2)",
-          }}
-        />
-        <div
-          ref={ring2}
-          className="hero-ring ring-spin2"
-          style={{
-            top: "9%",
-            right: "13%",
-            width: 355,
-            height: 355,
-            zIndex: 5,
-            border: "0.5px solid rgba(255,255,255,.06)",
-          }}
-        />
-        <div
-          ref={ring3}
-          className="hero-ring"
-          style={{
-            bottom: "23%",
-            right: "7%",
-            width: 80,
-            height: 80,
-            zIndex: 5,
-            border: "1.5px solid rgba(91,199,40,.22)",
-          }}
-        />
+        <div ref={ring1} className="hero-ring ring-spin"  style={{ top: "11%", right: "15%", width: 300, height: 300, zIndex: 5, border: "1px dashed rgba(91,199,40,.2)" }} />
+        <div ref={ring2} className="hero-ring ring-spin2" style={{ top: "9%",  right: "13%", width: 355, height: 355, zIndex: 5, border: "0.5px solid rgba(255,255,255,.06)" }} />
+        <div ref={ring3} className="hero-ring"            style={{ bottom: "23%", right: "7%", width: 80,  height: 80,  zIndex: 5, border: "1.5px solid rgba(91,199,40,.22)" }} />
 
         {/* ══════════════════════════════════════
             RIGHT PANEL — 4 Premium Data Cards
         ══════════════════════════════════════ */}
         <div
           ref={cards}
-          className=" hero-layer"
-          style={{
-            position: "absolute",
-            right: "4%",
-            top: "50%",
-            transform: "translateY(-50%)",
-            zIndex: 9,
-          }}
+          className="hero-layer"
+          style={{ position: "absolute", right: "4%", top: "50%", transform: "translateY(-50%)", zIndex: 9 }}
         >
+          {/* Cert card — top */}
           <div>
-            <div
-              ref={(el) => (cardRefs.current[3] = el)}
-              className="hc-card hc-cert fd"
-            >
+            <div ref={(el) => (cardRefs.current[3] = el)} className="hc-card hc-cert fd">
               <div className="hc-cert-icon">🏅</div>
               <div>
                 <div className="hc-cert-name">Govt. Certified</div>
@@ -681,106 +504,51 @@ export default function Hero() {
               </div>
             </div>
           </div>
+
           <div className="hc-panel">
             {/* ▸ Card 1 — Live Protection */}
-            <div
-              ref={(el) => (cardRefs.current[0] = el)}
-              className="hc-card hc-live fa"
-            >
+            <div ref={(el) => (cardRefs.current[0] = el)} className="hc-card hc-live fa">
               <div className="hc-live-top">
                 <div className="hc-live-badge">
                   <span className="hc-live-dot" /> Live Protection
                 </div>
-                <span style={{ color: green }}>
-                  <IconShield />
-                </span>
+                <span style={{ color: green }}><IconShield /></span>
               </div>
               <div className="hc-stat-row">
-                <div className="hc-big-num">
-                  98<em>%</em>
-                </div>
-                <div className="hc-num-label">
-                  Elimination
-                  <br />
-                  Success Rate
-                </div>
+                <div className="hc-big-num">98<em>%</em></div>
+                <div className="hc-num-label">Elimination<br />Success Rate</div>
               </div>
               <div className="hc-services">
                 {services.map((s) => (
-                  <div key={s} className="hc-svc">
-                    <IconCheck /> {s}
-                  </div>
+                  <div key={s} className="hc-svc"><IconCheck /> {s}</div>
                 ))}
               </div>
             </div>
 
             {/* ▸ Card 2 — Star Ratings */}
-            <div
-              ref={(el) => (cardRefs.current[1] = el)}
-              className="hc-card hc-rating fb"
-            >
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "flex-start",
-                  justifyContent: "space-between",
-                }}
-              >
+            <div ref={(el) => (cardRefs.current[1] = el)} className="hc-card hc-rating fb">
+              <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between" }}>
                 <div>
-                  <div className="hc-stars">
-                    {[1, 2, 3, 4, 5].map((i) => (
-                      <IconStar key={i} />
-                    ))}
-                  </div>
+                  <div className="hc-stars">{[1,2,3,4,5].map((i) => <IconStar key={i} />)}</div>
                   <div className="hc-rnum">4.9</div>
                   <div className="hc-rsub">500+ reviews across Kerala</div>
                 </div>
-                <div
-                  style={{
-                    background: "rgba(91,199,40,.15)",
-                    borderRadius: 10,
-                    border: "1px solid rgba(91,199,40,.3)",
-                    padding: "8px 12px",
-                    textAlign: "center",
-                    flexShrink: 0,
-                  }}
-                >
-                  <div
-                    style={{
-                      fontFamily: "'Lato',sans-serif",
-                      fontSize: 18,
-                      fontWeight: 900,
-                      color: green,
-                    }}
-                  >
-                    500+
-                  </div>
-                  <div
-                    style={{
-                      fontFamily: "'Lato',sans-serif",
-                      fontSize: 9,
-                      color: "rgba(255,255,255,.4)",
-                      marginTop: 2,
-                    }}
-                  >
-                    Reviews
-                  </div>
+                <div style={{ background: "rgba(91,199,40,.15)", borderRadius: 10, border: "1px solid rgba(91,199,40,.3)", padding: "8px 12px", textAlign: "center", flexShrink: 0 }}>
+                  <div style={{ fontFamily: "'Lato',sans-serif", fontSize: 18, fontWeight: 900, color: green }}>500+</div>
+                  <div style={{ fontFamily: "'Lato',sans-serif", fontSize: 9, color: "rgba(255,255,255,.4)", marginTop: 2 }}>Reviews</div>
                 </div>
               </div>
               <div className="hc-bars">
                 {ratingBars.map(([n, w]) => (
                   <div key={n} className="hc-bar-row">
                     <div className="hc-bar-lbl">{n}</div>
-                    <div className="hc-bar-track">
-                      <div className="hc-bar-fill" style={{ width: w }} />
-                    </div>
+                    <div className="hc-bar-track"><div className="hc-bar-fill" style={{ width: w }} /></div>
                     <div className="hc-bar-pct">{w}</div>
                   </div>
                 ))}
               </div>
             </div>
           </div>
-          {/* ▸ Card 4 — Certification */}
         </div>
 
         {/* ══════════════════════════════════════
@@ -789,129 +557,76 @@ export default function Hero() {
         <div
           ref={txtWrap}
           className="hero-txt"
-          style={{
-            padding: "0 68px",
-            maxWidth: 800,
-            zIndex: 8,
-            position: "relative",
-          }}
+          style={{ padding: "0 68px", maxWidth: 800, zIndex: 8, position: "relative" }}
         >
           {/* Badge */}
           <div ref={badge} className="hero-badge mb-3">
             <span className="hero-pulse-dot" />
-            <span
-              style={{
-                color: "rgba(255,255,255,.9)",
-                fontFamily: "'Lato',sans-serif",
-                fontSize: 11,
-                fontWeight: 700,
-                letterSpacing: 1.8,
-              }}
-            >
+            <span style={{ color: "rgba(255,255,255,.9)", fontFamily: "'Lato',sans-serif", fontSize: 11, fontWeight: 700, letterSpacing: 1.8 }}>
               KERALA'S #1 PEST CONTROL · EST. 2010
             </span>
           </div>
 
-          {/* Kerala availability tag */}
+          {/* ── UPDATED: Kerala + South TN availability tag ── */}
           <div ref={subRef1} className="kerala-avail mb-4">
             <span className="kerala-dot" />
-            Available across Kerala — Trivandrum · Kochi · Kozhikode · Thrissur
-            & more
+            All over Kerala &amp; South Tamil Nadu — Open 24 Hours
           </div>
 
           {/* H1 */}
-          <h1
-            className="hero-h1 mb-4"
-            style={{
-              fontSize: "clamp(38px,6.8vw,96px)",
-              letterSpacing: -2,
-              color: "#fff",
-            }}
-          >
+          <h1 className="hero-h1 mb-4" style={{ fontSize: "clamp(38px,6.8vw,96px)", letterSpacing: -2, color: "#fff" }}>
             {words.map(([w, c], i) => (
-              <span
-                key={i}
-                ref={(el) => (h1Words.current[i] = el)}
-                className={`hw${i === 0 ? " hw-shimmer" : ""}`}
-                style={i !== 0 ? { color: c } : {}}
-              >
+              <span key={i} ref={(el) => (h1Words.current[i] = el)} className={`hw${i === 0 ? " hw-shimmer" : ""}`} style={i !== 0 ? { color: c } : {}}>
                 {w}
               </span>
             ))}
           </h1>
 
-          {/* Subtitle */}
+          {/* ── UPDATED subtitle ── */}
           <p
             ref={subRef}
-            style={{
-              color: "rgba(255,255,255,.56)",
-              fontFamily: "'Lato',sans-serif",
-              fontSize: "clamp(13px,1.6vw,17px)",
-              lineHeight: 1.95,
-              maxWidth: 490,
-              fontWeight: 300,
-              marginBottom: 44,
-            }}
+            style={{ color: "rgba(255,255,255,.56)", fontFamily: "'Lato',sans-serif", fontSize: "clamp(13px,1.6vw,17px)", lineHeight: 1.95, maxWidth: 490, fontWeight: 300, marginBottom: 44 }}
           >
-            Professional eco-friendly pest elimination across all 14 Kerala
-            districts. Govt. certified technicians, child &amp; pet-safe
-            treatments, guaranteed results with 24/7 emergency response.
+            Professional eco-friendly pest elimination across all of Kerala and
+            South Tamil Nadu. Govt. certified technicians, child &amp; pet-safe
+            treatments, guaranteed results — available 24 hours a day, every day.
           </p>
 
           {/* CTAs */}
-          <div
-            ref={ctaRef}
-            className="d-flex flex-wrap gap-3 align-items-center"
-          >
-            <button
-              className="btn-primary-og"
-              onClick={() => scrollTo("contact")}
-            >
+          <div ref={ctaRef} className="d-flex flex-wrap gap-3 align-items-center">
+            <button className="btn-primary-og" onClick={() => scrollTo("contact")}>
               🔍 Get Free Inspection
             </button>
-            <button
-              className="btn-outline-og"
-              onClick={() => scrollTo("services")}
-            >
+            <button className="btn-outline-og" onClick={() => scrollTo("services")}>
               View Services →
             </button>
           </div>
+
+          {/* ── UPDATED: Branch cities ticker ── */}
+          {/* <div ref={availRef} className="ticker-wrap mt-4">
+            <div className="ticker-track">
+              {[...serviceCities, ...serviceCities].map((city, i) => (
+                <span key={i} className="ticker-item">
+                  <span className="ticker-dot" />
+                  {city}
+                </span>
+              ))}
+            </div>
+          </div> */}
         </div>
 
-        {/* ── Stats Bar ── */}
+        {/* ── UPDATED Stats Bar — 24 Hrs ── */}
         <div ref={statsBar} className="stats-bar">
           <div className="row g-0">
             {stats.map(([ic, n, l], i) => (
-              <div
-                key={i}
-                ref={(el) => (statItems.current[i] = el)}
-                className="col-3 stat-item text-center py-3"
-              >
+              <div key={i} ref={(el) => (statItems.current[i] = el)} className="col-3 stat-item text-center py-3">
                 <div>
-                  <img
-                    src={ic}
-                    alt=""
-                    style={{ width: 26, height: 26, objectFit: "contain" }}
-                  />
+                  <img src={ic} alt="" style={{ width: 26, height: 26, objectFit: "contain" }} />
                 </div>
-                <div
-                  style={{
-                    fontFamily: "'Lato',sans-serif",
-                    fontSize: "clamp(18px,2.4vw,28px)",
-                    fontWeight: 900,
-                    color: navy,
-                    lineHeight: 1,
-                  }}
-                >
+                <div style={{ fontFamily: "'Lato',sans-serif", fontSize: "clamp(18px,2.4vw,28px)", fontWeight: 900, color: navy, lineHeight: 1 }}>
                   {n}
                 </div>
-                <div
-                  style={{
-                    fontFamily: "'Lato',sans-serif",
-                    fontSize: 11,
-                    color: muted,
-                  }}
-                >
+                <div style={{ fontFamily: "'Lato',sans-serif", fontSize: 11, color: muted }}>
                   {l}
                 </div>
               </div>

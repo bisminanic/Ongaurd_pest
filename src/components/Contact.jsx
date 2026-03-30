@@ -62,12 +62,17 @@ export default function Contact() {
     e.target.style.background = "rgba(255,255,255,.94)";
   };
 
-  const contactInfo = [
-    ["📞", "Call Us",       "+91 98765 43210"],
-    ["✉️", "Email",         "info@onguardpest.com"],
-    ["📍", "Service Area",  "Thiruvananthapuram, Kochi, Kozhikode, Thrissur, Kollam"],
-    ["⏰", "Hours",         "Mon–Sun 7AM – 9PM | Emergency 24/7"],
-  ];
+ const contactInfo = [
+  ["📞", "Call Us", "+91 79074 96956"],
+  ["✉️", "Email", "Onguardpestcontrols@gmail.com"],
+  ["📍", "Head office", `
+KOTTOOR PLAZA
+TC 24/1033
+THIRD FLOOR
+THYCAUD P O
+Thiruvananthapuram 695014`],
+  ["⏰", "Hours", "Mon–Sun 7AM – 9PM | Emergency 24/7"],
+];
 
   return (
     <>

@@ -1,22 +1,20 @@
 /* ═══════════════════════════════════════════════════════
    App.jsx — Root component
    ✦ Loader (image preloader)
-   ✦ Lenis smooth scroll  →  npm install lenis
+   ✦ Lenis smooth scroll
    ✦ GSAP ScrollTrigger proxy for Lenis
+   ✦ React Router for /about-us page
 ═══════════════════════════════════════════════════════ */
 import React, { useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
 import Lenis from "lenis";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-/* Bootstrap */
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 
-/* Loader */
-import Loader from "./components/Loader";
-
-/* Section components */
+import Loader        from "./components/Loader";
 import Navbar        from "./components/Navbar";
 import Hero          from "./components/Hero";
 import Services      from "./components/Services";
@@ -29,15 +27,36 @@ import Stats         from "./components/Stats";
 import Testimonials  from "./components/Testimonials";
 import Contact       from "./components/Contact";
 import Footer        from "./components/Footer";
+import AboutPage from "./Pages/AboutPage";
+
 
 gsap.registerPlugin(ScrollTrigger);
 
+function HomePage() {
+  return (
+    <>
+      <Loader />
+      <Navbar />
+      <Hero />
+      <About />
+      <Strip1 />
+      <Ticker />
+      <Services />
+      <Process />
+      <Strip2 />
+      <Stats />
+      <Testimonials />
+      <Contact />
+      <Footer />
+    </>
+  );
+}
+
 export default function App() {
 
-  /* ── Lenis smooth scroll + GSAP proxy ── */
   useEffect(() => {
     const lenis = new Lenis({
-      duration: 1.2,          /* scroll speed feel              */
+      duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: "vertical",
       gestureOrientation: "vertical",
@@ -46,16 +65,11 @@ export default function App() {
       touchMultiplier: 2,
     });
 
-    /* Proxy so ScrollTrigger uses Lenis scroll position */
     lenis.on("scroll", ScrollTrigger.update);
-
     gsap.ticker.add((time) => lenis.raf(time * 1000));
     gsap.ticker.lagSmoothing(0);
 
-    /* Re-calculate ScrollTrigger after loader completes */
-    const onLoaderDone = () => {
-      ScrollTrigger.refresh();
-    };
+    const onLoaderDone = () => { ScrollTrigger.refresh(); };
     window.addEventListener("loaderDone", onLoaderDone);
 
     return () => {
@@ -65,23 +79,18 @@ export default function App() {
     };
   }, []);
 
-  /* ── Custom cursor ── */
   useEffect(() => {
     const dot  = document.querySelector(".cursor-dot");
     const ring = document.querySelector(".cursor-ring");
     if (!dot || !ring) return;
 
-    let mouseX = 0, mouseY = 0;
-    let ringX  = 0, ringY  = 0;
-    let rafId;
+    let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0, rafId;
 
     const move = (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
+      mouseX = e.clientX; mouseY = e.clientY;
       dot.style.left = mouseX + "px";
       dot.style.top  = mouseY + "px";
     };
-
     window.addEventListener("mousemove", move);
 
     const animate = () => {
@@ -101,25 +110,12 @@ export default function App() {
 
   return (
     <>
-      {/* ── Loader (renders on top, fades out when images ready) ── */}
-      <Loader />
-
       <div className="cursor-dot"  />
       <div className="cursor-ring" />
-
-      <Navbar />
-      <Hero />
-      <About />
-    
-      <Strip1 />
-      <Ticker />
-        <Services />
-      <Process />
-      <Strip2 />
-      <Stats />
-      <Testimonials />
-      <Contact />
-      <Footer />
+      <Routes>
+        <Route path="/"         element={<HomePage />} />
+        <Route path="/about-us" element={<AboutPage />} />
+      </Routes>
     </>
   );
 }

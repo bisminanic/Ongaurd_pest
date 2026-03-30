@@ -4,6 +4,7 @@
    Dependencies: React, GSAP, ScrollTrigger, Bootstrap 5
 ═══════════════════════════════════════════════════════ */
 import React, { useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { navy, green, gd, muted, IMG } from "../constants";
@@ -12,6 +13,7 @@ import About2 from "../Assets/about2.jpg";
 gsap.registerPlugin(ScrollTrigger);
 
 export default function About() {
+  const navigate = useNavigate();
   const secRef = useRef();
   const bgRef = useRef();
   const imgW1 = useRef(),
@@ -82,9 +84,9 @@ export default function About() {
 
   const features = [
     { icon: "🏛️", text: "Govt. Certified & Licensed Technicians" },
-    { icon: "🌿", text: "Safe for children, pets & sensitive individuals" },
-    { icon: "📋", text: "AMC (Annual Maintenance Contracts) available" },
-    { icon: "⚡", text: "Same-day emergency pest response across Kerala" },
+    { icon: "🌿", text: "Eco-Friendly Treatments — Safe for Family & Pets" },
+    { icon: "📋", text: "AMC (Annual Maintenance Contracts) Available" },
+    { icon: "⚡", text: "Same-Day Emergency Pest Response Across Kerala" },
   ];
 
   return (
@@ -531,16 +533,18 @@ export default function About() {
                   Pest Control Partner
                 </h2>
 
+                {/* ── UPDATED CONTENT FROM PDF ── */}
                 <p className="about-body">
-                  Since 2010, OnGuard has protected thousands of Kerala homes
-                  and businesses. Our certified team uses eco-friendly
-                  formulations — lethal to pests, completely safe for your
-                  family.
+                  Since 2010, OnGuard Pest Controls has been a professional pest management
+                  and hygiene service provider based in Kerala — dedicated to creating safe,
+                  healthy, and pest-free environments for residential, commercial, and
+                  industrial clients through modern techniques and trained expertise.
                 </p>
                 <p className="about-body" style={{ marginBottom: 28 }}>
-                  Every service includes a satisfaction guarantee, 30-day free
-                  re-treatment, and a full post-service inspection report —
-                  across Kochi, Trivandrum, Calicut and beyond.
+                  We treat your home or office as though it were our own. From termites,
+                  rodents, and bed bugs to cockroaches, mosquitoes, and more — every client
+                  receives a personalized pest control plan backed by our commitment to
+                  quality, safety, and long-term results.
                 </p>
 
                 {/* Features */}
@@ -553,18 +557,36 @@ export default function About() {
                   ))}
                 </div>
 
-                {/* CTA */}
-                <a href="#contact" className="about-cta">
-                  Book Free Inspection
-                  <span className="about-cta-arrow">→</span>
-                </a>
+                {/* CTAs */}
+                <div style={{ display: "flex", flexWrap: "wrap", gap: 12, alignItems: "center", marginBottom: 0 }}>
+                  <a href="#contact" className="about-cta">
+                    Book Free Inspection
+                    <span className="about-cta-arrow">→</span>
+                  </a>
+                  <button
+                    onClick={() => navigate("/about-us")}
+                    style={{
+                      display: "inline-flex", alignItems: "center", gap: 10,
+                      background: "transparent", color: "#0a1628",
+                      border: "2px solid #0a1628", cursor: "pointer",
+                      fontFamily: "'DM Sans',sans-serif", fontSize: 14, fontWeight: 700,
+                      padding: "15px 35px", borderRadius: "50px",
+                      letterSpacing: "0.3px", transition: "all .3s",
+                    }}
+                    onMouseEnter={e => { e.currentTarget.style.background="#5bc728"; e.currentTarget.style.color="#fff"; e.currentTarget.style.borderColor="#5bc728"; e.currentTarget.style.boxShadow="0 18px 40px rgba(91,199,40,.35)"; e.currentTarget.style.transform="translateY(-3px)"; }}
+                    onMouseLeave={e => { e.currentTarget.style.background="transparent"; e.currentTarget.style.color="#0a1628"; e.currentTarget.style.borderColor="#0a1628"; e.currentTarget.style.boxShadow="none"; e.currentTarget.style.transform="none"; }}
+                  >
+                    View More About Us
+                    <span style={{ transition: "transform .3s" }}>→</span>
+                  </button>
+                </div>
 
-                {/* Stats strip */}
+                {/* Stats strip — updated to reflect real company data */}
                 <div className="about-stats-strip">
                   {[
-                    { val: "5K", sfx: "+", lbl: "Homes Protected" },
-                    { val: "98", sfx: "%", lbl: "Success Rate" },
-                    { val: "30", sfx: "", lbl: "Day Guarantee" },
+                    { val: "15", sfx: "+", lbl: "Years Experience" },
+                    { val: "13", sfx: "+", lbl: "Services Offered" },
+                    { val: "6", sfx: "+", lbl: "Sectors Served" },
                     { val: "24", sfx: "/7", lbl: "Support" },
                   ].map((s, i) => (
                     <div key={i} className="about-stat-cell">
