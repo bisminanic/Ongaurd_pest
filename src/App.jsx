@@ -1,10 +1,8 @@
-
 import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import Lenis from "lenis";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 
@@ -21,7 +19,8 @@ import Stats         from "./components/Stats";
 import Testimonials  from "./components/Testimonials";
 import Contact       from "./components/Contact";
 import Footer        from "./components/Footer";
-import AboutPage from "./Pages/AboutPage";
+import AboutPage          from "./Pages/AboutPage";
+import ServiceDetailPage from "./Pages/ServiceDetailPage";
 
 
 gsap.registerPlugin(ScrollTrigger);
@@ -34,10 +33,12 @@ function HomePage() {
       <Hero />
       <About />
       <Strip1 />
-      <Ticker />
+      {/* <Ticker /> */}
       <Services />
       <Process />
       <Strip2 />
+
+      
       <Stats />
       <Testimonials />
       <Contact />
@@ -47,7 +48,6 @@ function HomePage() {
 }
 
 export default function App() {
-
   useEffect(() => {
     const lenis = new Lenis({
       duration: 1.2,
@@ -58,14 +58,11 @@ export default function App() {
       wheelMultiplier: 1,
       touchMultiplier: 2,
     });
-
     lenis.on("scroll", ScrollTrigger.update);
     gsap.ticker.add((time) => lenis.raf(time * 1000));
     gsap.ticker.lagSmoothing(0);
-
     const onLoaderDone = () => { ScrollTrigger.refresh(); };
     window.addEventListener("loaderDone", onLoaderDone);
-
     return () => {
       lenis.destroy();
       gsap.ticker.remove((time) => lenis.raf(time * 1000));
@@ -77,16 +74,13 @@ export default function App() {
     const dot  = document.querySelector(".cursor-dot");
     const ring = document.querySelector(".cursor-ring");
     if (!dot || !ring) return;
-
     let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0, rafId;
-
     const move = (e) => {
       mouseX = e.clientX; mouseY = e.clientY;
       dot.style.left = mouseX + "px";
       dot.style.top  = mouseY + "px";
     };
     window.addEventListener("mousemove", move);
-
     const animate = () => {
       ringX += (mouseX - ringX) * 0.15;
       ringY += (mouseY - ringY) * 0.15;
@@ -95,7 +89,6 @@ export default function App() {
       rafId = requestAnimationFrame(animate);
     };
     animate();
-
     return () => {
       window.removeEventListener("mousemove", move);
       cancelAnimationFrame(rafId);
@@ -107,8 +100,9 @@ export default function App() {
       <div className="cursor-dot"  />
       <div className="cursor-ring" />
       <Routes>
-        <Route path="/"         element={<HomePage />} />
-        <Route path="/about-us" element={<AboutPage />} />
+        <Route path="/"                element={<HomePage />} />
+        <Route path="/about-us"        element={<AboutPage />} />
+        <Route path="/services/:slug"  element={<ServiceDetailPage />} />
       </Routes>
     </>
   );

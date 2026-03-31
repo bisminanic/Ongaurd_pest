@@ -218,7 +218,7 @@ export default function Stats() {
         .overlay {
           position: absolute;
           inset: 0;
-          background: rgba(0,0,0,0.85);
+          background: rgb(5 9 26 / 94%);
         }
 
         .content {
@@ -235,9 +235,10 @@ export default function Stats() {
         }
 
         .card {
-          padding: 30px;
-          border-radius: 12px;
-          background: rgb(157 255 165 / 16%);
+             padding: 30px;
+    border-radius: 12px;
+    background: rgb(91 199 40 / 8%);
+    border: 1px solid rgb(91 199 40 / 16%);
         }
 
         .num {
