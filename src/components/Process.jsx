@@ -1,8 +1,4 @@
-/* ═══════════════════════════════════════════════════════
-   SECTION 07 — Process (Enhanced)
-   4-step process with modern editorial dark design
-   Dependencies: React, GSAP, ScrollTrigger, Bootstrap 5
-═══════════════════════════════════════════════════════ */
+
 import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";

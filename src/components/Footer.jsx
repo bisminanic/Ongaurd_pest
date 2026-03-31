@@ -1,8 +1,4 @@
-/* ═══════════════════════════════════════════════════════
-   SECTION 12 — Footer
-   4-column footer with hover effects
-   Dependencies: React, Bootstrap 5
-═══════════════════════════════════════════════════════ */
+
 import React from "react";
 import Logo from "./Logo";
 import { green, navy } from "../constants";

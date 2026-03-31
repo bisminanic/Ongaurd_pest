@@ -1,10 +1,4 @@
-/* ═══════════════════════════════════════════════════════
-   SECTION 02 — Hero  (Kerala Premium Edition)
-   ✦ Cinematic GSAP entrance animation
-   ✦ Photo-free premium data cards on right panel
-   ✦ Kerala district availability ticker
-   ✦ Scroll + Mouse parallax
-═══════════════════════════════════════════════════════ */
+
 import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -17,7 +11,7 @@ import icon4 from "../Assets/24-hours.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
-/* ── tiny inline SVG icons (no extra dep) ── */
+
 const IconShield = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
     <path
@@ -93,9 +87,7 @@ export default function Hero() {
   const statItems = useRef([]);
   const cardRefs = useRef([]);
 
-  /* ════════════════════════════════════
-     CINEMATIC ENTRANCE
-  ════════════════════════════════════ */
+ 
   useEffect(() => {
     gsap.set(
       [
@@ -150,9 +142,7 @@ export default function Hero() {
     return () => tl.kill();
   }, []);
 
-  /* ════════════════════════════════════
-     SCROLL + MOUSE PARALLAX
-  ════════════════════════════════════ */
+ 
   useEffect(() => {
     const mouse = { x: 0, y: 0 };
     const onMouse = (e) => {
@@ -199,14 +189,14 @@ export default function Hero() {
     ["Service.", green],
   ];
 
-  // ── UPDATED: All Kerala + South Tamil Nadu branches ──
+
   const serviceCities = [
     "Ernakulam", "Kozhikode", "Trivandrum", "Thrissur", "Palakkad",
     "Kannur", "Kollam", "Kottayam", "Malappuram", "Wayanad",
     "Nagercoil", "Thirunelveli", "Chennai",
   ];
 
-  // ── UPDATED: 24 hrs working, accurate stats ──
+
   const stats = [
     [icon1, "15+", "Years in Kerala"],
     [icon2, "10K+", "Pests Eliminated"],
@@ -229,7 +219,7 @@ export default function Hero() {
     "Mosquito Fogging",
   ];
 
-  // ── UPDATED: Branch locations from image ──
+ 
   const branches = ["Ernakulam", "Kozhikode", "Nagercoil", "Thirunelveli", "Chennai"];
 
   return (
@@ -482,9 +472,7 @@ export default function Hero() {
         <div ref={ring2} className="hero-ring ring-spin2" style={{ top: "9%",  right: "13%", width: 355, height: 355, zIndex: 5, border: "0.5px solid rgba(255,255,255,.06)" }} />
         <div ref={ring3} className="hero-ring"            style={{ bottom: "23%", right: "7%", width: 80,  height: 80,  zIndex: 5, border: "1.5px solid rgba(91,199,40,.22)" }} />
 
-        {/* ══════════════════════════════════════
-            RIGHT PANEL — 4 Premium Data Cards
-        ══════════════════════════════════════ */}
+       
         <div
           ref={cards}
           className="hero-layer"
@@ -551,9 +539,7 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* ══════════════════════════════════════
-            LEFT — TEXT CONTENT
-        ══════════════════════════════════════ */}
+        
         <div
           ref={txtWrap}
           className="hero-txt"
@@ -567,7 +553,7 @@ export default function Hero() {
             </span>
           </div>
 
-          {/* ── UPDATED: Kerala + South TN availability tag ── */}
+         
           <div ref={subRef1} className="kerala-avail mb-4">
             <span className="kerala-dot" />
             All over Kerala &amp; South Tamil Nadu — Open 24 Hours
@@ -615,7 +601,7 @@ export default function Hero() {
           </div> */}
         </div>
 
-        {/* ── UPDATED Stats Bar — 24 Hrs ── */}
+      
         <div ref={statsBar} className="stats-bar">
           <div className="row g-0">
             {stats.map(([ic, n, l], i) => (

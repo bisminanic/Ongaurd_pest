@@ -1,13 +1,9 @@
-/* ═══════════════════════════════════════════════════════
-   SECTION 05 — Ticker (Infinite Marquee)
-   Pure CSS animation — no JS needed
-   Dependencies: React, Bootstrap 5
-═══════════════════════════════════════════════════════ */
+
 import React from "react";
 import { navy, green, TICKER_ITEMS } from "../constants";
 
 export default function Ticker() {
-  /* duplicate 4× for seamless loop */
+  
   const items = [...TICKER_ITEMS, ...TICKER_ITEMS, ...TICKER_ITEMS, ...TICKER_ITEMS];
 
   return (

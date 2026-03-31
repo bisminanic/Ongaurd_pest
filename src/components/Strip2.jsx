@@ -1,7 +1,4 @@
-/* ═══════════════════════════════════════════════════════
-   SECTION 08 — Strip2 (Guarantee Banner) — WHITE THEME
-   Clean light design · green accents · trust bar
-═══════════════════════════════════════════════════════ */
+
 import React, { useEffect, useRef, useState } from "react";
 
 const G = "#3ade6e";

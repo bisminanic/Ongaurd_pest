@@ -1,10 +1,4 @@
-/* ═══════════════════════════════════════════════════════
-   App.jsx — Root component
-   ✦ Loader (image preloader)
-   ✦ Lenis smooth scroll
-   ✦ GSAP ScrollTrigger proxy for Lenis
-   ✦ React Router for /about-us page
-═══════════════════════════════════════════════════════ */
+
 import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import Lenis from "lenis";

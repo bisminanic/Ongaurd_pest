@@ -1,7 +1,4 @@
-/* ═══════════════════════════════════════════════════════
-   SECTION 01 — Navbar  (Kerala Edition)
-   Dependencies: React, GSAP, Bootstrap 5, Logo
-═══════════════════════════════════════════════════════ */
+
 import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import Logo from "./Logo";
@@ -14,12 +11,12 @@ export default function Navbar() {
   const [scrolled,    setScrolled]    = useState(false);
   const [mobileOpen,  setMobileOpen]  = useState(false);
 
-  /* ── Entrance + scroll glass effect ── */
+
   useEffect(() => {
-    /* 1. Start hidden */
+  
     gsap.set(navRef.current, { y: -80, autoAlpha: 0 });
 
-    /* 2. Slide down after a beat */
+    
     const tl = gsap.timeline({ delay: 0.4 });
 
     tl.to(navRef.current, {
@@ -29,7 +26,7 @@ export default function Navbar() {
       ease: "expo.out",
     });
 
-    /* 3. Stagger the links in */
+    
     tl.fromTo(
       linksRef.current,
       { y: -12, autoAlpha: 0 },
@@ -37,7 +34,7 @@ export default function Navbar() {
       "-=0.55"
     );
 
-    /* 4. CTA button scale-in */
+   
     tl.fromTo(
       ctaBtnRef.current,
       { scale: 0.82, autoAlpha: 0 },
@@ -45,7 +42,7 @@ export default function Navbar() {
       "-=0.35"
     );
 
-    /* scroll listener */
+   
     const onScroll = () => setScrolled(window.scrollY > 80);
     window.addEventListener("scroll", onScroll, { passive: true });
 
@@ -168,9 +165,7 @@ export default function Navbar() {
         <div className="d-flex align-items-center gap-3" style={{ cursor:"pointer" }}
           onClick={() => scrollTo("hero")}>
           <Logo sz={34} tc={scrolled ? navy : "#fff"} />
-          {/* <span className="og-kerala-tag">
-            🌴 Kerala
-          </span> */}
+        
         </div>
 
         {/* Desktop links */}

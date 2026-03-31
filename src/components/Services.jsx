@@ -236,26 +236,19 @@ function SvcCard({ s, i, registerImg }) {
   );
 }
 
-/* ═══════════════════════════════════════════════════════
-   SERVICES SECTION
-   One shared RAF loop drives all 12 card parallax images.
-═══════════════════════════════════════════════════════ */
+
 export default function Services() {
   const headerRef  = useRef();
   const sectionRef = useRef();
 
-  /*
-   * imgRegistry: array of { imgEl, cardEl }
-   * Each SvcCard pushes itself in via registerImg().
-   * The single RAF below reads scroll once and updates all images.
-   */
+  
   const imgRegistry = useRef([]);
 
   const registerImg = (entry) => {
     imgRegistry.current.push(entry);
   };
 
-  /* ── Single shared RAF for ALL card parallax ── */
+  
   useEffect(() => {
     let rafId;
 
@@ -268,12 +261,7 @@ export default function Services() {
 
         const mid = window.innerHeight / 2 - rect.top - rect.height / 2;
 
-        /*
-         * ✅ FIX 4: multiplier reduced from 0.13 → 0.08
-         * At mid ≈ ±500px the max shift is ±40px.
-         * The image has 44px of headroom each side (220 * 0.2),
-         * so the image edge is never reached.
-         */
+       
         gsap.set(imgEl, { y: mid * 0.08 });
       });
 

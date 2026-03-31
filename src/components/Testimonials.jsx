@@ -1,8 +1,4 @@
-/* ═══════════════════════════════════════════════════════
-   SECTION 10 — Testimonials
-   Auto-rotating reviews on 3-layer parallax background
-   Dependencies: React, GSAP, ScrollTrigger, Bootstrap 5
-═══════════════════════════════════════════════════════ */
+
 import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";

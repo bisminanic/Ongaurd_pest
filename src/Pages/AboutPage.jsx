@@ -1,8 +1,4 @@
-/* ═══════════════════════════════════════════════════════
-   AboutPage.jsx — Full About Us Page
-   Shows complete company info from PDF
-   Triggered by "View More About Us" in About section
-═══════════════════════════════════════════════════════ */
+
 import React, { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { gsap } from "gsap";

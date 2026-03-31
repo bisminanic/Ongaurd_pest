@@ -1,8 +1,4 @@
-/* ═══════════════════════════════════════════════════════
-   SECTION 06 — About (Kerala Edition)
-   Modern editorial split layout with 5-layer parallax
-   Dependencies: React, GSAP, ScrollTrigger, Bootstrap 5
-═══════════════════════════════════════════════════════ */
+
 import React, { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { gsap } from "gsap";
@@ -38,7 +34,7 @@ export default function About() {
     };
     window.addEventListener("scroll", tick, { passive: true });
 
-    /* ── text entrance ── */
+   
     gsap.fromTo(
       textRef.current.children,
       { x: 70, opacity: 0 },
@@ -52,7 +48,7 @@ export default function About() {
       },
     );
 
-    /* ── image entrance ── */
+
     gsap.fromTo(
       [imgW1.current, imgW2.current],
       { scale: 1.07, opacity: 0 },
@@ -66,7 +62,7 @@ export default function About() {
       },
     );
 
-    /* ── badge pop ── */
+ 
     gsap.fromTo(
       badgeRef.current,
       { scale: 0.7, opacity: 0 },
@@ -388,10 +384,10 @@ export default function About() {
       `}</style>
 
       <section id="about" ref={secRef}>
-        {/* BG watermark */}
+       
         <div className="about-watermark">15</div>
 
-        {/* subtle bg photo layer */}
+       
         <div
           ref={bgRef}
           style={{
@@ -410,7 +406,6 @@ export default function About() {
           />
         </div>
 
-        {/* Green radial glow — right side */}
         <div
           style={{
             position: "absolute",
@@ -433,7 +428,7 @@ export default function About() {
             zIndex: 2,
           }}
         >
-          {/* Static corner decorations — not inside parallax */}
+          
 
           <div className="row align-items-center g-5">
             {/* ── Image Cluster ── */}

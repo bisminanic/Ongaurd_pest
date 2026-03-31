@@ -1,8 +1,4 @@
-/* ═══════════════════════════════════════════════════════
-   SECTION 04 — Strip1 (Action Banner) — ENHANCED
-   Full-bleed tactical parallax banner
-   Dependencies: React, GSAP, Bootstrap 5
-═══════════════════════════════════════════════════════ */
+
 import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { green, IMG } from "../constants";
@@ -14,7 +10,7 @@ export default function Strip1() {
   const l2Ref   = useRef();
   const txRef   = useRef();
 
-  /* ── Parallax scroll ── */
+ 
   useEffect(() => {
     const tick = () => {
       if (!secRef.current) return;
@@ -28,7 +24,7 @@ export default function Strip1() {
     return () => window.removeEventListener("scroll", tick);
   }, []);
 
-  /* ── Entrance animations on mount ── */
+
   useEffect(() => {
     gsap.fromTo(".s1-pill",
       { x: 60, opacity: 0 },

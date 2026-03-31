@@ -1,6 +1,4 @@
-/* ═══════════════════════════════════════════════════════
-   SECTION 09 — Stats (KERALA + ADVANCED PARALLAX)
-═══════════════════════════════════════════════════════ */
+
 
 import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
@@ -11,7 +9,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const G = "#3ade6e";
 
-/* ── DATA ── */
+
 const STATS = [
   {
     n: 15,
@@ -43,7 +41,7 @@ const STATS = [
   },
 ];
 
-/* ── Counter ── */
+
 function Counter({ to, suf = "" }) {
   const [val, setVal] = useState(0);
   const ref = useRef();
@@ -81,7 +79,7 @@ function Counter({ to, suf = "" }) {
   );
 }
 
-/* ── Progress Bar ── */
+
 function Bar({ pct }) {
   const [w, setW] = useState(0);
   const ref = useRef();
@@ -119,9 +117,9 @@ export default function Stats() {
   const l1Ref = useRef();
   const l2Ref = useRef();
 
-  /* ── PARALLAX + MOUSE ── */
+ 
   useEffect(() => {
-    // mouse movement
+   
     const handleMove = (e) => {
       const x = e.clientX / window.innerWidth - 0.5;
       const y = e.clientY / window.innerHeight - 0.5;

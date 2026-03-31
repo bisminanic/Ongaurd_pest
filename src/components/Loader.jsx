@@ -13,12 +13,12 @@ export default function Loader({ onComplete }) {
   const dotsRef = useRef([]);
 
   useEffect(() => {
-    let safety; // ✅ FIX: declare first
+    let safety; 
 
-    /* ── Lock scroll ── */
+    
     document.body.style.overflow = "hidden";
 
-    /* ── Entrance animation (SAFE) ── */
+    
     if (logoRef.current) {
       gsap.from(logoRef.current, {
         y: -20,
@@ -49,7 +49,7 @@ export default function Loader({ onComplete }) {
       });
     }
 
-    /* ── Collect all images ── */
+
     const imgs = Array.from(document.querySelectorAll("img"));
     let loaded = 0;
     const total = imgs.length || 1;
@@ -58,7 +58,7 @@ export default function Loader({ onComplete }) {
       loaded = Math.min(loaded + 1, total);
       const pct = Math.round((loaded / total) * 100);
 
-      /* Progress bar */
+     
       if (barRef.current) {
         gsap.to(barRef.current, {
           width: pct + "%",
@@ -67,7 +67,7 @@ export default function Loader({ onComplete }) {
         });
       }
 
-      /* Counter */
+     
       if (numRef.current) {
         gsap.to(numRef.current, {
           textContent: pct,
@@ -86,7 +86,7 @@ export default function Loader({ onComplete }) {
       if (loaded >= total) finish();
     };
 
-    /* Attach listeners */
+
     imgs.forEach((img) => {
       if (img.complete && img.naturalWidth > 0) {
         onLoad();
@@ -96,7 +96,7 @@ export default function Loader({ onComplete }) {
       }
     });
 
-    /* ── Finish function (SAFE) ── */
+   
     function finish() {
       if (safety) clearTimeout(safety);
 
@@ -138,17 +138,17 @@ export default function Loader({ onComplete }) {
       }
     }
 
-    /* ── Safety timeout ── */
+  
     safety = setTimeout(finish, 5000);
 
-    /* ── Cleanup ── */
+   
     return () => {
       if (safety) clearTimeout(safety);
       document.body.style.overflow = "";
     };
   }, [onComplete]);
 
-  /* ── Background dots ── */
+ 
   const dotPositions = [
     { top: "18%", left: "8%" },
     { top: "72%", left: "5%" },
@@ -173,7 +173,7 @@ export default function Loader({ onComplete }) {
         overflow: "hidden",
       }}
     >
-      {/* Decorative dots */}
+      
       {dotPositions.map((pos, i) => (
         <div
           key={i}
@@ -192,7 +192,7 @@ export default function Loader({ onComplete }) {
         />
       ))}
 
-      {/* Top line */}
+      
       <div
         style={{
           position: "absolute",
@@ -205,12 +205,12 @@ export default function Loader({ onComplete }) {
         }}
       />
 
-      {/* Logo */}
+      
       <div ref={logoRef} style={{ marginBottom: 24 }}>
         <Logo sz={48} tc="#fff" />
       </div>
 
-      {/* Text */}
+      
       <div
         ref={textRef}
         style={{
@@ -226,7 +226,7 @@ export default function Loader({ onComplete }) {
         OnGuard Pest Control
       </div>
 
-      {/* Progress */}
+     
       <div style={{ width: 220, position: "relative" }}>
         <div
           style={{
@@ -267,7 +267,7 @@ export default function Loader({ onComplete }) {
         <span ref={numRef} style={{ display: "none" }} />
       </div>
 
-      {/* Loading text */}
+    
       <div
         style={{
           marginTop: 18,
