@@ -1,40 +1,33 @@
-
 import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import Logo from "./Logo";
 import { navy, green, gd, muted } from "../constants";
+import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
-  const navRef      = useRef();
-  const linksRef    = useRef([]);
-  const ctaBtnRef   = useRef();
-  const [scrolled,    setScrolled]    = useState(false);
-  const [mobileOpen,  setMobileOpen]  = useState(false);
+  const navRef       = useRef();
+  const linksRef     = useRef([]);
+  const ctaBtnRef    = useRef();
+  const isFirstClick = useRef(true);   // ✅ first-click guard
 
+  const [scrolled,   setScrolled]   = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [activeId,   setActiveId]   = useState("");
 
+  const links = ["about", "services", "process", "blog", "review", "contact"];
+const navigate = useNavigate();
   useEffect(() => {
-  
+    // ── Entry animation ──────────────────────────────────────
     gsap.set(navRef.current, { y: -80, autoAlpha: 0 });
 
-    
     const tl = gsap.timeline({ delay: 0.4 });
-
-    tl.to(navRef.current, {
-      y: 0,
-      autoAlpha: 1,
-      duration: 1.0,
-      ease: "expo.out",
-    });
-
-    
+    tl.to(navRef.current, { y: 0, autoAlpha: 1, duration: 1.0, ease: "expo.out" });
     tl.fromTo(
       linksRef.current,
       { y: -12, autoAlpha: 0 },
       { y: 0, autoAlpha: 1, duration: 0.5, ease: "power3.out", stagger: 0.07 },
       "-=0.55"
     );
-
-   
     tl.fromTo(
       ctaBtnRef.current,
       { scale: 0.82, autoAlpha: 0 },
@@ -42,22 +35,63 @@ export default function Navbar() {
       "-=0.35"
     );
 
-   
+    // ── Reset first-click guard when loader finishes ─────────
+    const onLoaderDone = () => {
+      isFirstClick.current = false;
+    };
+    window.addEventListener("loaderDone", onLoaderDone, { once: true });
+
+    // ── Scrolled state ───────────────────────────────────────
     const onScroll = () => setScrolled(window.scrollY > 80);
     window.addEventListener("scroll", onScroll, { passive: true });
 
+    // ── Active section detection via IntersectionObserver ───
+    const sectionIds = ["hero", ...links];
+    const observers  = [];
+
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+
+      const obs = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) setActiveId(id);
+        },
+        {
+          rootMargin: "-40% 0px -55% 0px",
+          threshold: 0,
+        }
+      );
+      obs.observe(el);
+      observers.push(obs);
+    });
+
     return () => {
       window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("loaderDone", onLoaderDone);
+      observers.forEach((obs) => obs.disconnect());
       tl.kill();
     };
   }, []);
 
+  // ── Smooth scroll ────────────────────────────────────────
   const scrollTo = (id) => {
     setMobileOpen(false);
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-  };
+   navigate(`#${id}`, { replace: true });
 
-  const links = ["about","services",  "process","Blog","review", "contact"];
+    const el = document.getElementById(id);
+    if (!el) return;
+
+    if (isFirstClick.current) {
+      // Loader may not be fully gone yet — small delay on first click
+      isFirstClick.current = false;
+      setTimeout(() => {
+        el.scrollIntoView({ behavior: "smooth" });
+      }, 120);
+    } else {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
     <>
@@ -76,7 +110,6 @@ export default function Navbar() {
         }
         .og-nav.transparent { background:transparent; }
 
-        /* Kerala service tag */
         .og-kerala-tag {
           display:inline-flex; align-items:center; gap:6px;
           font-family:'Lato',sans-serif; font-size:10px; font-weight:700;
@@ -100,8 +133,18 @@ export default function Navbar() {
           font-size:14px; font-weight:700; cursor:pointer;
           border-bottom:2px solid transparent; padding:4px 0;
           transition:all .25s; letter-spacing:.3px;
+          position:relative;
         }
-        .og-nav-link:hover { color:${green}!important; border-bottom-color:${green}!important; }
+        .og-nav-link:hover {
+          color:${green}!important;
+          border-bottom-color:${green}!important;
+        }
+
+        /* ── Active link ── */
+        .og-nav-link.active-link {
+          color:${green}!important;
+          border-bottom-color:${green}!important;
+        }
 
         .og-cta-btn {
           background:${green}; color:#fff; border:none;
@@ -131,12 +174,13 @@ export default function Navbar() {
           background:#fff; padding:22px 40px 30px;
           box-shadow:0 18px 55px rgba(27,58,107,.14);
           border-top:3px solid ${green};
-          animation: slideDown .3s ease forwards;
+          animation:slideDown .3s ease forwards;
         }
         @keyframes slideDown {
           from { transform:translateY(-12px); opacity:0; }
           to   { transform:translateY(0);     opacity:1; }
         }
+
         .og-mobile-link {
           display:block; background:none; border:none;
           cursor:pointer; font-family:'Lato',sans-serif;
@@ -144,6 +188,8 @@ export default function Navbar() {
           padding:9px 0; width:100%; text-align:left; transition:color .2s;
         }
         .og-mobile-link:hover { color:${green}; }
+        .og-mobile-link.active { color:${green}; }
+
         .og-mobile-kerala {
           font-family:'Lato',sans-serif; font-size:11px; font-weight:700;
           color:${muted}; letter-spacing:1.2px; text-transform:uppercase;
@@ -161,11 +207,13 @@ export default function Navbar() {
 
       <nav ref={navRef} className={`og-nav ${scrolled ? "scrolled" : "transparent"}`}>
 
-        {/* Logo + Kerala tag */}
-        <div className="d-flex align-items-center gap-3" style={{ cursor:"pointer" }}
-          onClick={() => scrollTo("hero")}>
+        {/* Logo */}
+        <div
+          className="d-flex align-items-center gap-3"
+          style={{ cursor: "pointer" }}
+          onClick={() => scrollTo("hero")}
+        >
           <Logo sz={34} tc={scrolled ? navy : "#fff"} />
-        
         </div>
 
         {/* Desktop links */}
@@ -174,7 +222,7 @@ export default function Navbar() {
             <button
               key={id}
               ref={(el) => (linksRef.current[i] = el)}
-              className="og-nav-link"
+              className={`og-nav-link${activeId === id ? " active-link" : ""}`}
               onClick={() => scrollTo(id)}
               style={{ color: scrolled ? muted : "rgba(255,255,255,.84)" }}
             >
@@ -192,7 +240,7 @@ export default function Navbar() {
 
         {/* Hamburger */}
         <button className="og-hamburger" onClick={() => setMobileOpen(!mobileOpen)}>
-          {[0,1,2].map((i) => (
+          {[0, 1, 2].map((i) => (
             <span key={i} style={{ background: scrolled ? navy : "#fff" }} />
           ))}
         </button>
@@ -202,7 +250,11 @@ export default function Navbar() {
       {mobileOpen && (
         <div className="og-mobile-menu">
           {links.map((id) => (
-            <button key={id} className="og-mobile-link" onClick={() => scrollTo(id)}>
+            <button
+              key={id}
+              className={`og-mobile-link${activeId === id ? " active" : ""}`}
+              onClick={() => scrollTo(id)}
+            >
               {id[0].toUpperCase() + id.slice(1)}
             </button>
           ))}
