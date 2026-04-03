@@ -1,6 +1,7 @@
 import React from "react";
 import { navy, green } from "../constants";
 import logoImg from "../Assets/bg-remove-Logo.png"
+import logoWhite from "../Assets/Logo Variation-02.png"
 
 export default function Logo({ sz = 38, tc = "#fff" }) {
   return (

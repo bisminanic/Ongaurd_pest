@@ -745,7 +745,7 @@ margin-bottom: 17px !important;
                       ))}
                     </div>
                     <div className="hc-rnum">5.0</div>
-                    <div className="hc-rsub">397+ reviews on Google ↗</div>
+                    <div className="hc-rsub">388+ reviews on Google ↗</div>
                   </div>
                   <div
                     style={{

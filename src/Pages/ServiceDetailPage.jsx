@@ -89,7 +89,7 @@ export default function ServiceDetailPage() {
               fontSize: 15,
             }}
           >
-            ← Back to Services
+            ← Home 
           </button>
         </div>
       </div>
@@ -113,11 +113,12 @@ export default function ServiceDetailPage() {
         }
         .sdp-back-btn {
           display: inline-flex; align-items: center; gap: 8px;
-          background: none; border: none; cursor: pointer;
+          background: rgba(91,199,40,.1); color: #5bc728 !important; border: none; cursor: pointer;
           font-family: 'DM Sans',sans-serif; font-size: 14px; font-weight: 700;
           color: #0a1628; padding: 8px 16px; border-radius: 50px; transition: all .25s;
         }
-        .sdp-back-btn:hover { background: rgba(91,199,40,.1); color: #5bc728; }
+        .sdp-back-btn:hover { background: rgb(91 199 40 / 79%);
+    color: #f8f9fa !important; }
         .sdp-logo { font-family: 'Lato',sans-serif; font-size: 17px; font-weight: 900; color: #0a1628; }
         .sdp-logo span { color: #5bc728; }
 
@@ -304,13 +305,22 @@ export default function ServiceDetailPage() {
           .sdp-topbar { padding: 12px 24px; }
           .sdp-cta-band { padding: 36px 28px; }
         }
+           @media (max-width: 600px){
+          .sdp-topbar{
+          display:block;
+          }
+          .sdp-logo{
+              text-align: center;
+          }
+          
+          }
       `}</style>
 
       <div className="sdp-root">
         {/* Topbar */}
         <div className="sdp-topbar">
           <button className="sdp-back-btn" onClick={() => navigate(-1)}>
-            ← Back
+            ← Home
           </button>
           <div className="sdp-logo">
             OnGuard <span>Pest Controls</span>

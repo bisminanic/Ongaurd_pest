@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Lenis from "lenis";
 import { gsap } from "gsap";
@@ -30,16 +30,13 @@ gsap.registerPlugin(ScrollTrigger);
 function HomePage() {
   return (
     <>
-      {/* <Loader /> */}
       <Navbar />
       <Hero />
       <About />
-      {/* <Strip1 /> */}
-      {/* <Ticker /> */}
       <Services />
       <Process />
       <Strip2 />
-      <Associates /> {/* dark navy — international associates */}
+      <Associates />
       <Blog />
       <Stats />
       <Testimonials />
@@ -50,6 +47,11 @@ function HomePage() {
 }
 
 export default function App() {
+  /* ── siteReady: false = page is invisible behind the loader
+         siteReady: true  = loader has slid away, page is visible ── */
+  const [siteReady, setSiteReady] = useState(false);
+
+  /* ── Lenis smooth scroll + ScrollTrigger ── */
   useEffect(() => {
     const lenis = new Lenis({
       duration: 1.2,
@@ -57,28 +59,15 @@ export default function App() {
       smoothWheel: true,
     });
 
-    const raf = (time) => {
-      lenis.raf(time * 1000);
-    };
-
+    const raf = (time) => lenis.raf(time * 1000);
     lenis.on("scroll", ScrollTrigger.update);
     gsap.ticker.add(raf);
     gsap.ticker.lagSmoothing(0);
 
+    /* Refresh ScrollTrigger positions after loader slides away */
     const onLoaderDone = () => ScrollTrigger.refresh();
     window.addEventListener("loaderDone", onLoaderDone);
 
-    // ✅ HANDLE HASH + REFRESH
-    // BEFORE:
-    if (window.location.hash) {
-      setTimeout(() => {
-        lenis.scrollTo(window.location.hash);
-      }, 500);
-    } else {
-      lenis.scrollTo(0);
-    }
-
-    // AFTER:
     lenis.scrollTo(0);
 
     return () => {
@@ -87,29 +76,28 @@ export default function App() {
       window.removeEventListener("loaderDone", onLoaderDone);
     };
   }, []);
-  const location = useLocation();
 
+  /* ── Hash-link scrolling ── */
+  const location = useLocation();
   useEffect(() => {
     if (location.hash) {
       const el = document.querySelector(location.hash);
-      if (el) {
-        setTimeout(() => {
-          el.scrollIntoView({ behavior: "smooth" });
-        }, 100);
-      }
+      if (el) setTimeout(() => el.scrollIntoView({ behavior: "smooth" }), 100);
     }
   }, [location.hash]);
-  console.log(location.hash);
 
+  /* ── Custom cursor ── */
   useEffect(() => {
     const dot = document.querySelector(".cursor-dot");
     const ring = document.querySelector(".cursor-ring");
     if (!dot || !ring) return;
+
     let mouseX = 0,
       mouseY = 0,
       ringX = 0,
       ringY = 0,
       rafId;
+
     const move = (e) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
@@ -117,6 +105,7 @@ export default function App() {
       dot.style.top = mouseY + "px";
     };
     window.addEventListener("mousemove", move);
+
     const animate = () => {
       ringX += (mouseX - ringX) * 0.15;
       ringY += (mouseY - ringY) * 0.15;
@@ -125,6 +114,7 @@ export default function App() {
       rafId = requestAnimationFrame(animate);
     };
     animate();
+
     return () => {
       window.removeEventListener("mousemove", move);
       cancelAnimationFrame(rafId);
@@ -135,12 +125,32 @@ export default function App() {
     <>
       <div className="cursor-dot" />
       <div className="cursor-ring" />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/about-us" element={<AboutPage />} />
-        <Route path="/services/:slug" element={<ServiceDetailPage />} />
-        <Route path="/blog/:slug" element={<BlogDetail />} />
-      </Routes>
+
+      {/* ── Loader: always mounted, slides away when images are ready ── */}
+      <Loader onComplete={() => setSiteReady(true)} />
+
+      {/*
+        ── Page content:
+           • visibility:hidden keeps it in the DOM so images start
+             downloading immediately while the loader is running.
+           • Once the loader calls onComplete, visibility becomes
+             visible — everything appears already loaded & smooth.
+           • opacity transition gives a gentle final fade-in.
+      */}
+      <div
+        style={{
+          visibility: siteReady ? "visible" : "hidden",
+          opacity: siteReady ? 1 : 0,
+          transition: "opacity 0.4s ease",
+        }}
+      >
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/about-us" element={<AboutPage />} />
+          <Route path="/services/:slug" element={<ServiceDetailPage />} />
+          <Route path="/blog/:slug" element={<BlogDetail />} />
+        </Routes>
+      </div>
     </>
   );
 }

@@ -125,12 +125,13 @@ export default function BlogDetail() {
         }
         .bd-back {
           display: inline-flex; align-items: center; gap: 8px;
-          background: none; border: none; cursor: pointer;
+          background: rgba(91,199,40,.1); color: #5bc728 !important; border: none; cursor: pointer;
           font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 700;
           color: #0a1628; padding: 8px 16px; border-radius: 50px;
           transition: all .25s;
         }
-        .bd-back:hover { background: rgba(91,199,40,.1); color: #5bc728; }
+        .bd-back:hover { background: rgb(91 199 40 / 79%);
+    color: #f8f9fa !important;  }
         .bd-logo {
           font-family: 'Lato', sans-serif;
           font-size: 17px; font-weight: 900; color: #0a1628;
@@ -362,13 +363,22 @@ export default function BlogDetail() {
           .bd-cta      { padding: 32px 24px; }
           .bd-related-grid { grid-template-columns: 1fr; }
         }
+            @media (max-width: 600px){
+          .bd-topbar{
+          display:block;
+          }
+          .bd-logo{
+              text-align: center;
+          }
+          
+          }
       `}</style>
 
       <div className="bd-root">
         {/* ── Topbar ── */}
         <div className="bd-topbar">
           <button className="bd-back" onClick={() => navigate(-1)}>
-            ← Back
+            ← Home
           </button>
           <div className="bd-logo">
             OnGuard <span>Pest Controls</span>

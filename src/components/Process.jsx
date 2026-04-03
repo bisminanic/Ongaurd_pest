@@ -334,6 +334,10 @@ export default function Process() {
           #process { padding: 90px 20px !important; }
           .proc-connector { display: none; }
         }
+           @media (max-width: 600px){
+           .proc-cta-btn{
+           font-size:12px !important;
+           }}
       `}</style>
 
       <section id="process" ref={secRef}>

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { navy, green, gd, muted, IMG } from "../constants";
-import About1 from "../Assets/about1.png";
+import About1 from "../Assets/webp/about1.webp";
 import About2 from "../Assets/about2.jpg";
 gsap.registerPlugin(ScrollTrigger);
 
