@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import Logo from "./Logo";
+
 import { navy, green, gd, muted } from "../constants";
 import { useNavigate } from "react-router-dom";
 
@@ -14,7 +15,7 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeId,   setActiveId]   = useState("");
 
-  const links = ["about", "services", "process", "blog", "review", "contact"];
+  const links = ["home","about", "services", "process", "blog", "review", "contact"];
 const navigate = useNavigate();
   useEffect(() => {
     // ── Entry animation ──────────────────────────────────────
@@ -46,25 +47,31 @@ const navigate = useNavigate();
     window.addEventListener("scroll", onScroll, { passive: true });
 
     // ── Active section detection via IntersectionObserver ───
-    const sectionIds = ["hero", ...links];
+    const sectionIds = ["home", ...links];
     const observers  = [];
 
-    sectionIds.forEach((id) => {
-      const el = document.getElementById(id);
-      if (!el) return;
+   // In Navbar.jsx — inside the useEffect, update the observer callback:
 
-      const obs = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) setActiveId(id);
-        },
-        {
-          rootMargin: "-40% 0px -55% 0px",
-          threshold: 0,
-        }
-      );
-      obs.observe(el);
-      observers.push(obs);
-    });
+sectionIds.forEach((id) => {
+  const el = document.getElementById(id);
+  if (!el) return;
+
+  const obs = new IntersectionObserver(
+    ([entry]) => {
+      if (entry.isIntersecting) {
+        setActiveId(id);
+        // ✅ Keep URL in sync as user scrolls
+        window.history.replaceState(null, "", `#${id}`);
+      }
+    },
+    {
+      rootMargin: "-40% 0px -55% 0px",
+      threshold: 0,
+    }
+  );
+  obs.observe(el);
+  observers.push(obs);
+});
 
     return () => {
       window.removeEventListener("scroll", onScroll);
@@ -211,7 +218,7 @@ const navigate = useNavigate();
         <div
           className="d-flex align-items-center gap-3"
           style={{ cursor: "pointer" }}
-          onClick={() => scrollTo("hero")}
+          onClick={() => scrollTo("home")}
         >
           <Logo sz={34} tc={scrolled ? navy : "#fff"} />
         </div>

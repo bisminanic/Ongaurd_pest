@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { gsap } from "gsap";
@@ -18,7 +17,17 @@ export default function About() {
     imgI2 = useRef();
   const badgeRef = useRef();
   const textRef = useRef();
-
+  useEffect(() => {
+    const tooltipEls = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+    const tooltips = [...tooltipEls].map(
+      (el) =>
+        new window.bootstrap.Tooltip(el, {
+          trigger: "hover",
+          html: true, // ✅ IMPORTANT
+        }),
+    );
+    return () => tooltips.forEach((t) => t.dispose());
+  }, []);
   useEffect(() => {
     /* ── 5-layer parallax ── */
     const tick = () => {
@@ -34,7 +43,6 @@ export default function About() {
     };
     window.addEventListener("scroll", tick, { passive: true });
 
-   
     gsap.fromTo(
       textRef.current.children,
       { x: 70, opacity: 0 },
@@ -47,7 +55,6 @@ export default function About() {
         scrollTrigger: { trigger: secRef.current, start: "top 72%" },
       },
     );
-
 
     gsap.fromTo(
       [imgW1.current, imgW2.current],
@@ -62,7 +69,6 @@ export default function About() {
       },
     );
 
- 
     gsap.fromTo(
       badgeRef.current,
       { scale: 0.7, opacity: 0 },
@@ -88,7 +94,36 @@ export default function About() {
   return (
     <>
       <style>{`
+.about-map-clickable {
+  cursor: pointer;
+  transition: background .25s, box-shadow .25s, transform .2s;
+}
+.about-map-clickable:hover {
+     background: rgb(0 71 123) !important;
+    box-shadow: 0 4px 16px rgba(91, 199, 40, .15) !important;
+    transform: translateY(-2px) !important;
+}
+    .about-map-clickable:hover .subLocation{
+    color:#fff !important;
+    } 
 
+.og-map-tooltip .tooltip-inner {
+  background: rgba(10,20,50,.95) !important;
+  border: 1px solid rgba(91,199,40,.45) !important;
+  color: #fff !important;
+  font-family: 'Lato', sans-serif !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  letter-spacing: .3px !important;
+  padding: 8px 14px !important;
+  border-radius: 8px !important;
+  max-width: 260px !important;
+  text-align: center !important;
+  backdrop-filter: blur(10px) !important;
+}
+.og-map-tooltip .tooltip-arrow::before {
+  border-top-color: rgba(91,199,40,.45) !important;
+}
         @keyframes bob {
           0%,100% { transform: translateY(0) rotate(0deg); }
           50%      { transform: translateY(-14px) rotate(0deg); }
@@ -101,7 +136,7 @@ export default function About() {
         /* ── Section ── */
         #about {
           background: #f8f9f4;
-          padding: 130px 60px;
+           padding: clamp(70px, 8vw, 130px) clamp(16px, 5vw, 60px);
           overflow: hidden;
           position: relative;
         }
@@ -134,13 +169,14 @@ export default function About() {
         /* ── Image cluster ── */
         .about-cluster {
           position: relative;
-          height: 620px;
+           height: clamp(320px, 55vw, 620px);
         }
 
         /* Main image */
         .about-img-main {
           position: absolute; top: 0; left: 0;
-          width: 69%; height: 72%;
+          width: 70%;
+  height: 70%;
           border-radius: 4px 28px 4px 28px;
           overflow: hidden;
           box-shadow: 0 50px 110px rgba(27,58,107,.22);
@@ -161,7 +197,8 @@ export default function About() {
         /* Sub image */
         .about-img-sub {
           position: absolute; bottom: 0; right: 0;
-          width: 56%; height: 54%;
+          width: 60%;
+  height: 55%;
           border-radius: 28px 4px 28px 4px;
           overflow: hidden;
           box-shadow: 0 30px 80px rgba(27,58,107,.28);
@@ -198,13 +235,26 @@ export default function About() {
 
         /* Float badge */
         .about-badge {
-          position: absolute;     top: 62%;
-    left: 28%;
+          position: absolute;     top: 65%;
+  left: 30%;
           transform: translate(-50%,-50%) ;
           z-index: 6;
           will-change: transform;
           animation: bob 5.5s ease-in-out infinite;
         }
+          @media (max-width: 992px) {
+  .about-badge {
+    top: 70%;
+    left: 40%;
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+}
+
+@media (max-width: 576px) {
+  .about-badge {
+    display: none;
+  }
+}
         .about-badge-inner {
           background: linear-gradient(135deg, #5bc728 0%, #3fa81a 100%);
           border-radius: 20px;
@@ -380,14 +430,22 @@ export default function About() {
 
         @media (max-width: 992px) { .about-cluster { height: 420px; } }
         @media (max-width: 768px) { .about-cluster { display: none; } }
-        @media (max-width: 600px) { #about { padding: 80px 20px !important; } }
+        @media (max-width: 600px) { #about { padding: 80px 20px !important; }
+        .about-stat-lbl{
+        font-size: 7.5px;} }
+        .og-map-tooltip .tooltip-inner {
+  text-align: center;
+  line-height: 1.5;
+}
+.og-map-tooltip .tooltip-inner span {
+  color: #5bc728;
+  font-weight: 600;
+}
       `}</style>
 
       <section id="about" ref={secRef}>
-       
         <div className="about-watermark">15</div>
 
-       
         <div
           ref={bgRef}
           style={{
@@ -428,8 +486,6 @@ export default function About() {
             zIndex: 2,
           }}
         >
-          
-
           <div className="row align-items-center g-5">
             {/* ── Image Cluster ── */}
             <div className="col-lg-6" style={{ position: "relative" }}>
@@ -472,32 +528,51 @@ export default function About() {
                 </div>
 
                 {/* Kerala location tag */}
-                <div className="about-kerala-tag">
-                  <span style={{ fontSize: 16 }}>📍</span>
-                  <div>
-                    <div
-                      style={{
-                        fontFamily: "'DM Sans',sans-serif",
-                        fontSize: 11,
-                        fontWeight: 700,
-                        color: "#0a1628",
-                        lineHeight: 1.2,
-                      }}
-                    >
-                      Serving All Kerala
-                    </div>
-                    <div
-                      style={{
-                        fontFamily: "'DM Sans',sans-serif",
-                        fontSize: 10,
-                        color: "#9aa5b8",
-                        marginTop: 2,
-                      }}
-                    >
-                      Kochi · Trivandrum · Calicut
+                <a
+                  href="https://www.google.com/maps/dir//OnGuard+Pest+Controls,+Sri,+Narasimha+shopping+complex,+near+Govt+Secretariat,+opposite+YMCA+Road,+Statue,+Palayam,+Thiruvananthapuram,+Kerala+695001/@8.4996555,76.9242809,12z/data=!4m8!4m7!1m0!1m5!1m1!1s0x417860831dc4e6b9:0xd9244f4df3b987de!2m2!1d76.9496642!2d8.4958291?hl=en-IN&entry=ttu&g_ep=EgoyMDI2MDMzMS4wIKXMDSoASAFQAw%3D%3D"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ textDecoration: "none" }}
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="top"
+                  data-bs-custom-class="og-map-tooltip"
+                  title={`
+  <div style="text-align:center">
+    📍 Sri Narasimhavilasam Complex<br/>
+    Opp. YMCA Road, Statue, Palayam<br/>
+    Thiruvananthapuram<br/>
+    <span style="color:#5bc728;">Click to open in Maps</span>
+  </div>
+`}
+                >
+                  <div className="about-kerala-tag about-map-clickable">
+                    <span style={{ fontSize: 16 }}>📍</span>
+                    <div>
+                      <div
+                        className="subLocation"
+                        style={{
+                          fontFamily: "'DM Sans',sans-serif",
+                          fontSize: 11,
+                          fontWeight: 700,
+                          color: "#0a1628",
+                          lineHeight: 1.2,
+                        }}
+                      >
+                        Serving All Kerala
+                      </div>
+                      <div
+                        style={{
+                          fontFamily: "'DM Sans',sans-serif",
+                          fontSize: 10,
+                          color: "#9aa5b8",
+                          marginTop: 2,
+                        }}
+                      >
+                        Kochi · Trivandrum · Calicut
+                      </div>
                     </div>
                   </div>
-                </div>
+                </a>
               </div>
             </div>
 
@@ -530,16 +605,18 @@ export default function About() {
 
                 {/* ── UPDATED CONTENT FROM PDF ── */}
                 <p className="about-body">
-                  Since 2010, OnGuard Pest Controls has been a professional pest management
-                  and hygiene service provider based in Kerala — dedicated to creating safe,
-                  healthy, and pest-free environments for residential, commercial, and
-                  industrial clients through modern techniques and trained expertise.
+                  Since 2010, OnGuard Pest Controls has been a professional pest
+                  management and hygiene service provider based in Kerala —
+                  dedicated to creating safe, healthy, and pest-free
+                  environments for residential, commercial, and industrial
+                  clients through modern techniques and trained expertise.
                 </p>
                 <p className="about-body" style={{ marginBottom: 28 }}>
-                  We treat your home or office as though it were our own. From termites,
-                  rodents, and bed bugs to cockroaches, mosquitoes, and more — every client
-                  receives a personalized pest control plan backed by our commitment to
-                  quality, safety, and long-term results.
+                  We treat your home or office as though it were our own. From
+                  termites, rodents, and bed bugs to cockroaches, mosquitoes,
+                  and more — every client receives a personalized pest control
+                  plan backed by our commitment to quality, safety, and
+                  long-term results.
                 </p>
 
                 {/* Features */}
@@ -553,7 +630,15 @@ export default function About() {
                 </div>
 
                 {/* CTAs */}
-                <div style={{ display: "flex", flexWrap: "wrap", gap: 12, alignItems: "center", marginBottom: 0 }}>
+                <div
+                  style={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    gap: 12,
+                    alignItems: "center",
+                    marginBottom: 0,
+                  }}
+                >
                   <a href="#contact" className="about-cta">
                     Book Free Inspection
                     <span className="about-cta-arrow">→</span>
@@ -561,15 +646,36 @@ export default function About() {
                   <button
                     onClick={() => navigate("/about-us")}
                     style={{
-                      display: "inline-flex", alignItems: "center", gap: 10,
-                      background: "transparent", color: "#0a1628",
-                      border: "2px solid #0a1628", cursor: "pointer",
-                      fontFamily: "'DM Sans',sans-serif", fontSize: 14, fontWeight: 700,
-                      padding: "15px 35px", borderRadius: "50px",
-                      letterSpacing: "0.3px", transition: "all .3s",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: 10,
+                      background: "transparent",
+                      color: "#0a1628",
+                      border: "2px solid #0a1628",
+                      cursor: "pointer",
+                      fontFamily: "'DM Sans',sans-serif",
+                      fontSize: 14,
+                      fontWeight: 700,
+                      padding: "15px 35px",
+                      borderRadius: "50px",
+                      letterSpacing: "0.3px",
+                      transition: "all .3s",
                     }}
-                    onMouseEnter={e => { e.currentTarget.style.background="#5bc728"; e.currentTarget.style.color="#fff"; e.currentTarget.style.borderColor="#5bc728"; e.currentTarget.style.boxShadow="0 18px 40px rgba(91,199,40,.35)"; e.currentTarget.style.transform="translateY(-3px)"; }}
-                    onMouseLeave={e => { e.currentTarget.style.background="transparent"; e.currentTarget.style.color="#0a1628"; e.currentTarget.style.borderColor="#0a1628"; e.currentTarget.style.boxShadow="none"; e.currentTarget.style.transform="none"; }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = "#5bc728";
+                      e.currentTarget.style.color = "#fff";
+                      e.currentTarget.style.borderColor = "#5bc728";
+                      e.currentTarget.style.boxShadow =
+                        "0 18px 40px rgba(91,199,40,.35)";
+                      e.currentTarget.style.transform = "translateY(-3px)";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = "transparent";
+                      e.currentTarget.style.color = "#0a1628";
+                      e.currentTarget.style.borderColor = "#0a1628";
+                      e.currentTarget.style.boxShadow = "none";
+                      e.currentTarget.style.transform = "none";
+                    }}
                   >
                     View More About Us
                     <span style={{ transition: "transform .3s" }}>→</span>

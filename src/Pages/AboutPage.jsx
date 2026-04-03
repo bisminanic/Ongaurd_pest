@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { gsap } from "gsap";
@@ -18,7 +17,7 @@ export default function AboutPage() {
     gsap.fromTo(
       heroRef.current,
       { opacity: 0, y: 40 },
-      { opacity: 1, y: 0, duration: 0.9, ease: "power3.out" }
+      { opacity: 1, y: 0, duration: 0.9, ease: "power3.out" },
     );
 
     // Stagger sections on scroll
@@ -33,45 +32,139 @@ export default function AboutPage() {
           duration: 0.75,
           ease: "power3.out",
           scrollTrigger: { trigger: el, start: "top 82%" },
-        }
+        },
       );
     });
 
     return () => ScrollTrigger.getAll().forEach((t) => t.kill());
   }, []);
 
-  const addRef = (i) => (el) => { sectionsRef.current[i] = el; };
+  const addRef = (i) => (el) => {
+    sectionsRef.current[i] = el;
+  };
 
   const coreServices = [
-    { icon: "🪳", name: "General Pest Control",       desc: "Protection against common household pests" },
-    { icon: "🐀", name: "Rodent Control",              desc: "Effective elimination of rats and mice" },
-    { icon: "🪲", name: "Cockroach Control",           desc: "Advanced gel and spray treatments" },
-    { icon: "🐜", name: "Termite Control",             desc: "Pre- and post-construction solutions" },
-    { icon: "🛏️", name: "Bed Bug Treatment",          desc: "Complete eradication methods" },
-    { icon: "🦟", name: "Mosquito Control",            desc: "Fogging and larval control" },
-    { icon: "🐝", name: "Ant Control",                 desc: "Colony elimination and prevention" },
-    { icon: "🪰", name: "Housefly Control",            desc: "Hygiene-focused fly management" },
-    { icon: "🪵", name: "Wood Borer Treatment",        desc: "Protection for wooden structures" },
-    { icon: "🐝", name: "Honey Bee Removal",           desc: "Safe and eco-friendly relocation" },
-    { icon: "🐍", name: "Snake Control",               desc: "Humane capture and removal services" },
-    { icon: "🧹", name: "Deep Cleaning Services",      desc: "Thorough cleaning for homes and businesses" },
-    { icon: "🧴", name: "Disinfection & Sanitization", desc: "Advanced hygiene solutions" },
+    {
+      icon: "🪳",
+      name: "General Pest Control",
+      desc: "Protection against common household pests",
+    },
+    {
+      icon: "🐀",
+      name: "Rodent Control",
+      desc: "Effective elimination of rats and mice",
+    },
+    {
+      icon: "🪲",
+      name: "Cockroach Control",
+      desc: "Advanced gel and spray treatments",
+    },
+    {
+      icon: "🐜",
+      name: "Termite Control",
+      desc: "Pre- and post-construction solutions",
+    },
+    {
+      icon: "🛏️",
+      name: "Bed Bug Treatment",
+      desc: "Complete eradication methods",
+    },
+    {
+      icon: "🦟",
+      name: "Mosquito Control",
+      desc: "Fogging and larval control",
+    },
+    {
+      icon: "🐝",
+      name: "Ant Control",
+      desc: "Colony elimination and prevention",
+    },
+    {
+      icon: "🪰",
+      name: "Housefly Control",
+      desc: "Hygiene-focused fly management",
+    },
+    {
+      icon: "🪵",
+      name: "Wood Borer Treatment",
+      desc: "Protection for wooden structures",
+    },
+    {
+      icon: "🐝",
+      name: "Honey Bee Removal",
+      desc: "Safe and eco-friendly relocation",
+    },
+    {
+      icon: "🐍",
+      name: "Snake Control",
+      desc: "Humane capture and removal services",
+    },
+    {
+      icon: "🧹",
+      name: "Deep Cleaning Services",
+      desc: "Thorough cleaning for homes and businesses",
+    },
+    {
+      icon: "🧴",
+      name: "Disinfection & Sanitization",
+      desc: "Advanced hygiene solutions",
+    },
   ];
 
   const approach = [
-    { step: "01", title: "Inspection",       desc: "Detailed assessment of the problem area and infestation level." },
-    { step: "02", title: "Identification",   desc: "Understanding the pest type, species, and severity of the problem." },
-    { step: "03", title: "Customized Plan",  desc: "Tailored treatment strategy designed for your specific environment." },
-    { step: "04", title: "Execution",        desc: "Safe, precise, and effective application of treatments." },
-    { step: "05", title: "Follow-Up",        desc: "Ongoing monitoring and preventive support for long-term protection." },
+    {
+      step: "01",
+      title: "Inspection",
+      desc: "Detailed assessment of the problem area and infestation level.",
+    },
+    {
+      step: "02",
+      title: "Identification",
+      desc: "Understanding the pest type, species, and severity of the problem.",
+    },
+    {
+      step: "03",
+      title: "Customized Plan",
+      desc: "Tailored treatment strategy designed for your specific environment.",
+    },
+    {
+      step: "04",
+      title: "Execution",
+      desc: "Safe, precise, and effective application of treatments.",
+    },
+    {
+      step: "05",
+      title: "Follow-Up",
+      desc: "Ongoing monitoring and preventive support for long-term protection.",
+    },
   ];
 
   const keyFeatures = [
-    { icon: "👷", title: "Professional Expertise",  desc: "Trained technicians with in-depth knowledge of pest behavior and control methods." },
-    { icon: "🔬", title: "Advanced Techniques",     desc: "Use of modern tools, eco-friendly products, and scientifically proven methods." },
-    { icon: "🎯", title: "Customized Solutions",    desc: "Services tailored to suit different environments and infestation levels." },
-    { icon: "🛡️", title: "Safety & Compliance",    desc: "Use of approved chemicals and strict safety protocols for people and pets." },
-    { icon: "⭐", title: "Customer Satisfaction",   desc: "Focus on delivering reliable service, timely response, and lasting results." },
+    {
+      icon: "👷",
+      title: "Professional Expertise",
+      desc: "Trained technicians with in-depth knowledge of pest behavior and control methods.",
+    },
+    {
+      icon: "🔬",
+      title: "Advanced Techniques",
+      desc: "Use of modern tools, eco-friendly products, and scientifically proven methods.",
+    },
+    {
+      icon: "🎯",
+      title: "Customized Solutions",
+      desc: "Services tailored to suit different environments and infestation levels.",
+    },
+    {
+      icon: "🛡️",
+      title: "Safety & Compliance",
+      desc: "Use of approved chemicals and strict safety protocols for people and pets.",
+    },
+    {
+      icon: "⭐",
+      title: "Customer Satisfaction",
+      desc: "Focus on delivering reliable service, timely response, and lasting results.",
+    },
   ];
 
   const industries = [
@@ -105,13 +198,14 @@ export default function AboutPage() {
         }
         .ap-back-btn {
           display: inline-flex; align-items: center; gap: 8px;
-          background: none; border: none; cursor: pointer;
+          border: none; cursor: pointer;
           font-family: 'DM Sans', sans-serif; font-size: 14px;
           font-weight: 700; color: #0a1628;
-          padding: 8px 16px; border-radius: 50px;
-          transition: all .25s;
+              padding: 5px 13px;border-radius: 50px;
+          transition: all .25s;background: rgba(91,199,40,.1); color: #5bc728 !important;
         }
-        .ap-back-btn:hover { background: rgba(91,199,40,.1); color: #5bc728; }
+        .ap-back-btn:hover {    background: rgb(91 199 40 / 79%);
+    color: #f8f9fa !important; }
         .ap-topbar-logo {
           font-family: 'Lato', sans-serif; font-size: 18px;
           font-weight: 900; color: #0a1628; letter-spacing: -0.5px;
@@ -374,15 +468,26 @@ export default function AboutPage() {
           .ap-cta-band { padding: 36px 28px; }
           .ap-hero-stats { gap: 28px; }
         }
+          @media (max-width: 600px){
+          .ap-topbar{
+          display:block;
+          }
+          .ap-topbar-logo{
+              text-align: center;
+          }
+          
+          }
       `}</style>
 
       <div className="ap-root">
         {/* ── Sticky top bar ── */}
         <div className="ap-topbar">
-          <button className="ap-back-btn" onClick={() => navigate("/")}>
-            ← Back to Home
+          <button className="ap-back-btn" onClick={() => navigate("/#about")}>
+            ← Home
           </button>
-          <div className="ap-topbar-logo">OnGuard <span>Pest Controls</span></div>
+          <div className="ap-topbar-logo">
+            OnGuard <span>Pest Controls</span>
+          </div>
           <div style={{ width: 120 }} /> {/* spacer */}
         </div>
 
@@ -395,22 +500,28 @@ export default function AboutPage() {
               Company Overview
             </div>
             <h1 className="ap-hero-h1">
-              About <em>OnGuard</em><br />Pest Controls
+              About <em>OnGuard</em>
+              <br />
+              Pest Controls
             </h1>
             <p className="ap-hero-sub">
-              A professional pest management and hygiene service provider based in Kerala,
-              serving residential, commercial, and industrial clients since 2010 with
-              modern techniques, trained expertise, and customer-focused service.
+              A professional pest management and hygiene service provider based
+              in Kerala, serving residential, commercial, and industrial clients
+              since 2010 with modern techniques, trained expertise, and
+              customer-focused service.
             </p>
             <div className="ap-hero-stats">
               {[
                 ["15", "+", "Years Experience"],
                 ["13", "+", "Services Offered"],
-                ["6",  "+", "Sectors Served"],
+                ["6", "+", "Sectors Served"],
                 ["24", " Hrs", "Always Open"],
               ].map(([n, s, l]) => (
                 <div key={l}>
-                  <div className="ap-hero-stat-num">{n}<span>{s}</span></div>
+                  <div className="ap-hero-stat-num">
+                    {n}
+                    <span>{s}</span>
+                  </div>
                   <div className="ap-hero-stat-lbl">{l}</div>
                 </div>
               ))}
@@ -419,40 +530,45 @@ export default function AboutPage() {
         </div>
 
         <div className="ap-content">
-
           {/* ── Company Overview ── */}
           <div className="ap-section" ref={addRef(0)}>
             <div className="ap-section-label">
               <div className="ap-section-bar" />
               <span className="ap-section-tag">Who We Are</span>
             </div>
-            <h2 className="ap-section-h2">Kerala's Most Trusted Pest Control Partner</h2>
+            <h2 className="ap-section-h2">
+              Kerala's Most Trusted Pest Control Partner
+            </h2>
             <div className="ap-overview-card">
               <p>
-                OnGuard Pest Controls is a professional pest management and hygiene service
-                provider based in Kerala, offering reliable and effective solutions for
-                residential, commercial, and industrial clients since 2010. The company is
-                dedicated to creating safe, healthy, and pest-free environments through
-                modern techniques, trained expertise, and customer-focused service.
+                OnGuard Pest Controls is a professional pest management and
+                hygiene service provider based in Kerala, offering reliable and
+                effective solutions for residential, commercial, and industrial
+                clients since 2010. The company is dedicated to creating safe,
+                healthy, and pest-free environments through modern techniques,
+                trained expertise, and customer-focused service.
               </p>
               <p>
-                OnGuard Pest Controls specializes in comprehensive pest control and cleaning
-                services tailored to meet the unique needs of each client. With a strong focus
-                on quality, safety, and long-term results, the company has built a reputation
-                for delivering dependable and efficient pest management solutions.
+                OnGuard Pest Controls specializes in comprehensive pest control
+                and cleaning services tailored to meet the unique needs of each
+                client. With a strong focus on quality, safety, and long-term
+                results, the company has built a reputation for delivering
+                dependable and efficient pest management solutions.
               </p>
               <p>
-                We provide the highest level of quality and care to residential and commercial
-                properties. Our team will treat your home or office as though it were our own —
-                we believe that is the cornerstone of a quality relationship. Our experience
-                allows us to quickly and efficiently detect and eliminate pests in any
+                We provide the highest level of quality and care to residential
+                and commercial properties. Our team will treat your home or
+                office as though it were our own — we believe that is the
+                cornerstone of a quality relationship. Our experience allows us
+                to quickly and efficiently detect and eliminate pests in any
                 environment or structure.
               </p>
               <p>
-                From termites, ants, rats and mice to bed bugs, cockroaches, and more, OnGuard
-                Pest Controls is determined to help you live pest-free. For each client, we
-                create a personalized pest control plan to keep your home or office free of
-                the harmful effects that pests can cause.
+                From termites, ants, rats and mice to bed bugs, cockroaches, and
+                more, OnGuard Pest Controls is determined to help you live
+                pest-free. For each client, we create a personalized pest
+                control plan to keep your home or office free of the harmful
+                effects that pests can cause.
               </p>
             </div>
           </div>
@@ -463,10 +579,13 @@ export default function AboutPage() {
               <div className="ap-section-bar" />
               <span className="ap-section-tag">Core Services</span>
             </div>
-            <h2 className="ap-section-h2">13+ Specialized Pest Control Services</h2>
+            <h2 className="ap-section-h2">
+              13+ Specialized Pest Control Services
+            </h2>
             <p className="ap-section-body">
-              We offer a comprehensive range of pest management and hygiene solutions,
-              each designed to deliver complete protection tailored to your environment.
+              We offer a comprehensive range of pest management and hygiene
+              solutions, each designed to deliver complete protection tailored
+              to your environment.
             </p>
             <div className="ap-services-grid">
               {coreServices.map((s) => (
@@ -489,8 +608,9 @@ export default function AboutPage() {
             </div>
             <h2 className="ap-section-h2">A Systematic 5-Step Process</h2>
             <p className="ap-section-body">
-              OnGuard follows a structured and professional approach that ensures complete
-              pest elimination and long-term protection for every client.
+              OnGuard follows a structured and professional approach that
+              ensures complete pest elimination and long-term protection for
+              every client.
             </p>
             <div className="ap-steps">
               {approach.map((a) => (
@@ -555,17 +675,17 @@ export default function AboutPage() {
               <div className="ap-mv-card mission">
                 <div className="ap-mv-label">Our Mission</div>
                 <div className="ap-mv-text">
-                  To provide effective, safe, and sustainable pest control and hygiene
-                  solutions that improve the quality of life for our customers — in every
-                  home and business we serve.
+                  To provide effective, safe, and sustainable pest control and
+                  hygiene solutions that improve the quality of life for our
+                  customers — in every home and business we serve.
                 </div>
               </div>
               <div className="ap-mv-card vision">
                 <div className="ap-mv-label">Our Vision</div>
                 <div className="ap-mv-text">
-                  To become a trusted and leading pest control service provider known for
-                  innovation, reliability, and customer satisfaction across Kerala and
-                  beyond.
+                  To become a trusted and leading pest control service provider
+                  known for innovation, reliability, and customer satisfaction
+                  across Kerala and beyond.
                 </div>
               </div>
             </div>
@@ -574,14 +694,29 @@ export default function AboutPage() {
           {/* ── CTA Band ── */}
           <div className="ap-cta-band" ref={addRef(6)}>
             <div>
-              <div className="ap-cta-title">Ready for a Pest-Free Environment?</div>
-              <div className="ap-cta-sub">Get a free inspection from our certified team today.</div>
+              <div className="ap-cta-title">
+                Ready for a Pest-Free Environment?
+              </div>
+              <div className="ap-cta-sub">
+                Get a free inspection from our certified team today.
+              </div>
             </div>
-            <button className="ap-cta-btn" onClick={() => { navigate("/"); setTimeout(() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" }), 400); }}>
+            <button
+              className="ap-cta-btn"
+              onClick={() => {
+                navigate("/");
+                setTimeout(
+                  () =>
+                    document
+                      .getElementById("contact")
+                      ?.scrollIntoView({ behavior: "smooth" }),
+                  400,
+                );
+              }}
+            >
               Book Free Inspection →
             </button>
           </div>
-
         </div>
       </div>
     </>

@@ -30,7 +30,7 @@ gsap.registerPlugin(ScrollTrigger);
 function HomePage() {
   return (
     <>
-      <Loader />
+      {/* <Loader /> */}
       <Navbar />
       <Hero />
       <About />
@@ -69,14 +69,17 @@ export default function App() {
     window.addEventListener("loaderDone", onLoaderDone);
 
     // ✅ HANDLE HASH + REFRESH
+    // BEFORE:
     if (window.location.hash) {
       setTimeout(() => {
         lenis.scrollTo(window.location.hash);
       }, 500);
     } else {
-      // ✅ ALWAYS GO TOP ON REFRESH
       lenis.scrollTo(0);
     }
+
+    // AFTER:
+    lenis.scrollTo(0);
 
     return () => {
       lenis.destroy();
@@ -87,18 +90,16 @@ export default function App() {
   const location = useLocation();
 
   useEffect(() => {
-  if (location.hash) {
-    const el = document.querySelector(location.hash);
-    if (el) {
-      setTimeout(() => {
-        el.scrollIntoView({ behavior: "smooth" });
-      }, 100);
+    if (location.hash) {
+      const el = document.querySelector(location.hash);
+      if (el) {
+        setTimeout(() => {
+          el.scrollIntoView({ behavior: "smooth" });
+        }, 100);
+      }
     }
-  }
-
-  
-}, [location.hash]);
-console.log(location.hash);
+  }, [location.hash]);
+  console.log(location.hash);
 
   useEffect(() => {
     const dot = document.querySelector(".cursor-dot");
