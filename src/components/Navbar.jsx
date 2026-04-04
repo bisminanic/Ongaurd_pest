@@ -6,34 +6,47 @@ import { navy, green, gd, muted } from "../constants";
 import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
-  const navRef       = useRef();
-  const linksRef     = useRef([]);
-  const ctaBtnRef    = useRef();
-  const isFirstClick = useRef(true);   // ✅ first-click guard
+  const navRef = useRef();
+  const linksRef = useRef([]);
+  const ctaBtnRef = useRef();
+  const isFirstClick = useRef(true); // ✅ first-click guard
 
-  const [scrolled,   setScrolled]   = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [activeId,   setActiveId]   = useState("");
+  const [activeId, setActiveId] = useState("");
 
-  const links = ["home","about", "services", "process", "blog", "review", "contact"];
-const navigate = useNavigate();
+  const links = [
+    "home",
+    "about",
+    "services",
+    "process",
+    "blog",
+    "review",
+    "contact",
+  ];
+  const navigate = useNavigate();
   useEffect(() => {
     // ── Entry animation ──────────────────────────────────────
     gsap.set(navRef.current, { y: -80, autoAlpha: 0 });
 
     const tl = gsap.timeline({ delay: 0.4 });
-    tl.to(navRef.current, { y: 0, autoAlpha: 1, duration: 1.0, ease: "expo.out" });
+    tl.to(navRef.current, {
+      y: 0,
+      autoAlpha: 1,
+      duration: 1.0,
+      ease: "expo.out",
+    });
     tl.fromTo(
       linksRef.current,
       { y: -12, autoAlpha: 0 },
       { y: 0, autoAlpha: 1, duration: 0.5, ease: "power3.out", stagger: 0.07 },
-      "-=0.55"
+      "-=0.55",
     );
     tl.fromTo(
       ctaBtnRef.current,
       { scale: 0.82, autoAlpha: 0 },
       { scale: 1, autoAlpha: 1, duration: 0.55, ease: "back.out(1.8)" },
-      "-=0.35"
+      "-=0.35",
     );
 
     // ── Reset first-click guard when loader finishes ─────────
@@ -48,30 +61,30 @@ const navigate = useNavigate();
 
     // ── Active section detection via IntersectionObserver ───
     const sectionIds = ["home", ...links];
-    const observers  = [];
+    const observers = [];
 
-   // In Navbar.jsx — inside the useEffect, update the observer callback:
+    // In Navbar.jsx — inside the useEffect, update the observer callback:
 
-sectionIds.forEach((id) => {
-  const el = document.getElementById(id);
-  if (!el) return;
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (!el) return;
 
-  const obs = new IntersectionObserver(
-    ([entry]) => {
-      if (entry.isIntersecting) {
-        setActiveId(id);
-        // ✅ Keep URL in sync as user scrolls
-        window.history.replaceState(null, "", `#${id}`);
-      }
-    },
-    {
-      rootMargin: "-40% 0px -55% 0px",
-      threshold: 0,
-    }
-  );
-  obs.observe(el);
-  observers.push(obs);
-});
+      const obs = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setActiveId(id);
+            // ✅ Keep URL in sync as user scrolls
+            window.history.replaceState(null, "", `#${id}`);
+          }
+        },
+        {
+          rootMargin: "-40% 0px -55% 0px",
+          threshold: 0,
+        },
+      );
+      obs.observe(el);
+      observers.push(obs);
+    });
 
     return () => {
       window.removeEventListener("scroll", onScroll);
@@ -84,7 +97,7 @@ sectionIds.forEach((id) => {
   // ── Smooth scroll ────────────────────────────────────────
   const scrollTo = (id) => {
     setMobileOpen(false);
-   navigate(`#${id}`, { replace: true });
+    navigate(`#${id}`, { replace: true });
 
     const el = document.getElementById(id);
     if (!el) return;
@@ -212,15 +225,18 @@ sectionIds.forEach((id) => {
         }
       `}</style>
 
-      <nav ref={navRef} className={`og-nav ${scrolled ? "scrolled" : "transparent"}`}>
-
+      <nav
+        ref={navRef}
+        className={`og-nav ${scrolled ? "scrolled" : "transparent"}`}
+      >
         {/* Logo */}
+       
         <div
           className="d-flex align-items-center gap-3"
           style={{ cursor: "pointer" }}
           onClick={() => scrollTo("home")}
         >
-          <Logo sz={34} tc={scrolled ? navy : "#fff"} />
+          <Logo  tc={scrolled ? navy : "#fff"} white={!scrolled} />
         </div>
 
         {/* Desktop links */}
@@ -246,7 +262,10 @@ sectionIds.forEach((id) => {
         </div>
 
         {/* Hamburger */}
-        <button className="og-hamburger" onClick={() => setMobileOpen(!mobileOpen)}>
+        <button
+          className="og-hamburger"
+          onClick={() => setMobileOpen(!mobileOpen)}
+        >
           {[0, 1, 2].map((i) => (
             <span key={i} style={{ background: scrolled ? navy : "#fff" }} />
           ))}
@@ -266,7 +285,8 @@ sectionIds.forEach((id) => {
             </button>
           ))}
           <div className="og-mobile-kerala">
-            🌴 Serving all of Kerala — Trivandrum · Kochi · Kozhikode · Thrissur & more
+            🌴 Serving all of Kerala — Trivandrum · Kochi · Kozhikode · Thrissur
+            & more
           </div>
         </div>
       )}

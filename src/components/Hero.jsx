@@ -191,7 +191,7 @@ useEffect(() => {
         onUpdate: (self) => {
           const p = self.progress,
             sy = p * vh;
-          gsap.set(bgL1.current, { y: sy * 0.55, x: mouse.x * -18 });
+          gsap.set(bgL1.current, { y: sy * 0.55 });
           gsap.set(orb1.current, {
             y: -sy * 0.5 + mouse.y * 28,
             x: mouse.x * 55,

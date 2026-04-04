@@ -7,6 +7,8 @@ import icon2 from "../Assets/map.png";
 import icon3 from "../Assets/gmail.png";
 import icon4 from "../Assets/clock.png";
 import icon5 from "../Assets/pin.png"
+
+
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Contact() {
