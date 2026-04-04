@@ -430,9 +430,14 @@ export default function About() {
 
         @media (max-width: 992px) { .about-cluster { height: 420px; } }
         @media (max-width: 768px) { .about-cluster { display: none; } }
-        @media (max-width: 600px) { #about { padding: 80px 20px !important; }
+        @media (max-width: 600px) { 
+        #about { padding: 80px 20px !important;  }
         .about-stat-lbl{
-        font-size: 7.5px;} }
+        font-size: 7.5px;} 
+        }
+        .about-stat-cell{
+        padding: 18px 15px !important;
+        }
         .og-map-tooltip .tooltip-inner {
   text-align: center;
   line-height: 1.5;

@@ -1,14 +1,11 @@
-
-
 import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { IMG } from "../constants";
-import imag1 from "../Assets/whytrust.png"
+import imag1 from "../Assets/whytrust.png";
+
 gsap.registerPlugin(ScrollTrigger);
 
 const G = "#3ade6e";
-
 
 const STATS = [
   {
@@ -41,7 +38,6 @@ const STATS = [
   },
 ];
 
-
 function Counter({ to, suf = "" }) {
   const [val, setVal] = useState(0);
   const ref = useRef();
@@ -60,13 +56,12 @@ function Counter({ to, suf = "" }) {
               onUpdate: function () {
                 setVal(Math.round(this.targets()[0].n));
               },
-            },
+            }
           );
         }
       },
-      { threshold: 0.5 },
+      { threshold: 0.5 }
     );
-
     obs.observe(ref.current);
     return () => obs.disconnect();
   }, [to]);
@@ -79,7 +74,6 @@ function Counter({ to, suf = "" }) {
   );
 }
 
-
 function Bar({ pct }) {
   const [w, setW] = useState(0);
   const ref = useRef();
@@ -89,6 +83,7 @@ function Bar({ pct }) {
       if (e.isIntersecting) setW(pct);
     });
     obs.observe(ref.current);
+    return () => obs.disconnect();
   }, [pct]);
 
   return (
@@ -96,8 +91,9 @@ function Bar({ pct }) {
       ref={ref}
       style={{
         height: 3,
-        background: "rgba(255,255,255,.1)",
+        background: "rgba(255,255,255,0.1)",
         marginTop: 15,
+        borderRadius: 2,
       }}
     >
       <div
@@ -105,7 +101,8 @@ function Bar({ pct }) {
           width: `${w}%`,
           height: "100%",
           background: G,
-          transition: "1.5s",
+          borderRadius: 2,
+          transition: "width 1.5s ease",
         }}
       />
     </div>
@@ -117,79 +114,37 @@ export default function Stats() {
   const l1Ref = useRef();
   const l2Ref = useRef();
 
- 
   useEffect(() => {
-   
     const handleMove = (e) => {
       const x = e.clientX / window.innerWidth - 0.5;
       const y = e.clientY / window.innerHeight - 0.5;
-
-      gsap.to(l1Ref.current, {
-        x: x * 40,
-        y: y * 40,
-        scale: 1.1,
-        duration: 1.2,
-      });
-
-      gsap.to(l2Ref.current, {
-        x: x * 20,
-        y: y * 20,
-        scale: 1.05,
-        duration: 1.2,
-      });
+      gsap.to(l1Ref.current, { x: x * 40, y: y * 40, scale: 1.1, duration: 1.2 });
+      gsap.to(l2Ref.current, { x: x * 20, y: y * 20, scale: 1.05, duration: 1.2 });
     };
 
     window.addEventListener("mousemove", handleMove);
 
-    // scroll parallax
     gsap.to(l1Ref.current, {
       yPercent: 15,
-      scrollTrigger: {
-        trigger: secRef.current,
-        scrub: true,
-      },
+      scrollTrigger: { trigger: secRef.current, scrub: true },
     });
-
     gsap.to(l2Ref.current, {
       yPercent: 8,
-      scrollTrigger: {
-        trigger: secRef.current,
-        scrub: true,
-      },
+      scrollTrigger: { trigger: secRef.current, scrub: true },
     });
 
-    // floating animation
-    gsap.to(l1Ref.current, {
-      y: "+=20",
-      duration: 6,
-      repeat: -1,
-      yoyo: true,
-    });
+    gsap.to(l1Ref.current, { y: "+=20", duration: 6, repeat: -1, yoyo: true });
+    gsap.to(l2Ref.current, { y: "-=15", duration: 5, repeat: -1, yoyo: true });
 
-    gsap.to(l2Ref.current, {
-      y: "-=15",
-      duration: 5,
-      repeat: -1,
-      yoyo: true,
-    });
-
-    return () => {
-      window.removeEventListener("mousemove", handleMove);
-    };
+    return () => window.removeEventListener("mousemove", handleMove);
   }, []);
 
-  /* ── CURSOR GLOW ── */
   useEffect(() => {
-    const glow = document.querySelector(".cursor-glow");
-
+    const glow = document.querySelector(".st9-cursor-glow");
+    if (!glow) return;
     const moveGlow = (e) => {
-      gsap.to(glow, {
-        x: e.clientX,
-        y: e.clientY,
-        duration: 0.3,
-      });
+      gsap.to(glow, { x: e.clientX, y: e.clientY, duration: 0.3 });
     };
-
     window.addEventListener("mousemove", moveGlow);
     return () => window.removeEventListener("mousemove", moveGlow);
   }, []);
@@ -202,103 +157,133 @@ export default function Stats() {
           padding: 120px 40px;
           overflow: hidden;
           color: #fff;
+          background: #05091a;
         }
 
+        /* ── background layers ── */
         .st9-layer {
           position: absolute;
           inset: -20%;
+          pointer-events: none;
         }
-
         .st9-layer img {
           width: 110%;
           height: 110%;
           object-fit: cover;
         }
 
-        .overlay {
+        /* ── dark overlay ── */
+        .st9-overlay {
           position: absolute;
           inset: 0;
-          background: rgb(5 9 26 / 94%);
+          background: rgba(5, 9, 26, 0.94);
+          pointer-events: none;
         }
 
-        .content {
+        /* ── cursor glow ── */
+        .st9-cursor-glow {
+          position: fixed;
+          width: 300px;
+          height: 300px;
+          background: radial-gradient(circle, rgba(58,222,110,0.2), transparent 70%);
+          border-radius: 50%;
+          pointer-events: none;
+          z-index: 9999;
+          transform: translate(-50%, -50%);
+        }
+
+        /* ── content wrapper ── */
+        .st9-content {
           position: relative;
           z-index: 2;
           text-align: center;
         }
 
-        .cards {
+        .st9-content h2 {
+          font-size: clamp(24px, 4vw, 40px);
+          font-weight: 700;
+          color: #fff;
+          margin: 0 0 60px;
+        }
+
+        /* ── cards grid ── */
+        .st9-cards {
           display: grid;
-          grid-template-columns: repeat(4,1fr);
+          grid-template-columns: repeat(4, 1fr);
           gap: 20px;
-          margin-top: 60px;
+          margin-top: 0;
         }
 
-        .card {
-             padding: 30px;
-    border-radius: 12px;
-    background: rgb(91 199 40 / 8%);
-    border: 1px solid rgb(91 199 40 / 16%);
+        .st9-card {
+          padding: 30px;
+          border-radius: 12px;
+          background: rgba(91, 199, 40, 0.08);
+          border: 1px solid rgba(91, 199, 40, 0.16);
+          text-align: center;
         }
 
-        .num {
+        .st9-num {
           font-size: 40px;
+          font-weight: 700;
           color: ${G};
-          font-weight: bold;
-        }
-        .card h4 {
-  color: #fff;
-}
-
-.card p {
-  color: rgba(255,255,255,0.7);
-}
-
-        .cursor-glow {
-          position: absolute;
-          width: 300px;
-          height: 300px;
-          background: radial-gradient(circle, rgba(58,222,110,.2), transparent);
-          border-radius: 50%;
-          pointer-events: none;
-          z-index: 1;
+          line-height: 1.1;
+          margin-bottom: 10px;
         }
 
-        @media(max-width:900px){
-          .cards{grid-template-columns:repeat(2,1fr);}
+        .st9-card-title {
+          font-size: 16px;
+          font-weight: 600;
+          color: #fff;
+          margin: 8px 0 6px;
         }
 
-        @media(max-width:500px){
-          .cards{grid-template-columns:1fr;}
+        .st9-card-sub {
+          font-size: 13px;
+          color: rgba(255, 255, 255, 0.65);
+          margin: 0;
+          line-height: 1.4;
+        }
+
+        @media (max-width: 900px) {
+          .st9-cards { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 500px) {
+          #stats9 { padding: 80px 20px; }
+          .st9-cards { grid-template-columns: 1fr; }
+          .st9-num { font-size: 32px; }
         }
       `}</style>
 
       <section id="stats9" ref={secRef}>
-        {/* BG */}
+        {/* Background layers */}
         <div ref={l1Ref} className="st9-layer">
           <img src={imag1} alt="" />
         </div>
-
         <div ref={l2Ref} className="st9-layer">
           <img src={imag1} alt="" />
         </div>
 
-        <div className="overlay" />
-        <div className="cursor-glow" />
+        {/* Overlay */}
+        <div className="st9-overlay" />
 
-        <div className="content">
+        {/* Cursor glow */}
+        <div className="st9-cursor-glow" />
+
+        {/* Content */}
+        <div className="st9-content">
           <h2>
-            Why Kerala Trusts <span style={{ color: G }}>OnGuard</span>
+            Why Kerala Trusts{" "}
+            <span style={{ color: G }}>OnGuard</span>
           </h2>
 
-          <div className="cards">
+          <div className="st9-cards">
             {STATS.map((s, i) => (
-              <div className="card" key={i}>
-                <div className="num">
+              <div className="st9-card" key={i}>
+                <div className="st9-num">
                   <Counter to={s.n} suf={s.suf} />
                 </div>
-                <h4>{s.label}</h4>
-                <p>{s.sub}</p>
+                <h4 className="st9-card-title">{s.label}</h4>
+                <p className="st9-card-sub">{s.sub}</p>
                 <Bar pct={s.bar} />
               </div>
             ))}

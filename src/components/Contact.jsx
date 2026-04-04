@@ -6,8 +6,7 @@ import icon1 from "../Assets/phone-call.png";
 import icon2 from "../Assets/map.png";
 import icon3 from "../Assets/gmail.png";
 import icon4 from "../Assets/clock.png";
-import icon5 from "../Assets/pin.png"
-
+import icon5 from "../Assets/pin.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -257,7 +256,11 @@ export default function Contact() {
                             : {}
                         }
                       >
-                       <img src={ic} alt="logo" style={{width:20, height:20}}/> 
+                        <img
+                          src={ic}
+                          alt="logo"
+                          style={{ width: 20, height: 20 }}
+                        />
                       </div>
                       <div>
                         <div
@@ -355,7 +358,7 @@ export default function Contact() {
                           ["Full Name *", "text", "Your Name", "name"],
                           ["Phone *", "tel", "+91 XXXXX XXXXX", "phone"],
                         ].map(([l, t, p, k]) => (
-                          <div key={k} className="col-6">
+                          <div key={k} className="col-12 col-sm-6">
                             <label className="form-label-og">{l}</label>
                             <input
                               required
