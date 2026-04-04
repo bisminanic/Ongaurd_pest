@@ -389,7 +389,7 @@ export default function Footer() {
       {/* Floating WhatsApp Button */}
 
       <a
-        href="https://wa.me/9179074 96956"
+        href="https://wa.me/917907496956"
         target="_blank"
         rel="noopener noreferrer"
         className="call-fab"
