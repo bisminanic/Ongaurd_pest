@@ -499,7 +499,11 @@ export default function About() {
               <div className="about-cluster">
                 {/* Main image */}
                 <div ref={imgW1} className="about-img-main">
-                  <img ref={imgI1} src={About1} alt="Professional inspection" />
+                  <img
+                    ref={imgI1}
+                    src={About1}
+                    alt="Pest control inspection service in Trivandrum Kerala"
+                  />
                   <div className="about-cert">
                     <div className="about-cert-dot" />
                     <span
@@ -517,9 +521,16 @@ export default function About() {
 
                 {/* Sub image */}
                 <div ref={imgW2} className="about-img-sub">
-                  <img ref={imgI2} src={About2} alt="Professional team" />
+                  <img
+                    ref={imgI2}
+                    src={About2}
+                    alt="OnGuard pest control team in Trivandrum"
+                  />
                 </div>
-
+                <h3 style={{ display: "none" }}>
+                  Termite Control | Mosquito Control | Cockroach Control in
+                  Trivandrum Kerala
+                </h3>
                 {/* Floating badge */}
                 <div ref={badgeRef} className="about-badge">
                   <div className="about-badge-inner">
@@ -563,7 +574,7 @@ export default function About() {
                           lineHeight: 1.2,
                         }}
                       >
-                        Serving All Kerala
+                       Serving Trivandrum, Kochi & All Kerala
                       </div>
                       <div
                         style={{
@@ -610,18 +621,18 @@ export default function About() {
 
                 {/* ── UPDATED CONTENT FROM PDF ── */}
                 <p className="about-body">
-                  Since 2010, OnGuard Pest Controls has been a professional pest
-                  management and hygiene service provider based in Kerala —
-                  dedicated to creating safe, healthy, and pest-free
-                  environments for residential, commercial, and industrial
-                  clients through modern techniques and trained expertise.
+                  OnGuard Pest Controls is a leading pest control company in
+                  Trivandrum, Kerala, providing professional pest management
+                  services since 2010. We specialize in termite control,
+                  mosquito control, cockroach removal, and rodent control for
+                  homes, offices, and commercial spaces.
                 </p>
                 <p className="about-body" style={{ marginBottom: 28 }}>
-                  We treat your home or office as though it were our own. From
-                  termites, rodents, and bed bugs to cockroaches, mosquitoes,
-                  and more — every client receives a personalized pest control
-                  plan backed by our commitment to quality, safety, and
-                  long-term results.
+                  Our expert team uses eco-friendly and safe pest control
+                  methods to ensure long-term protection. Whether you need
+                  residential or commercial pest control in Trivandrum, we
+                  deliver reliable and effective solutions tailored to your
+                  needs.
                 </p>
 
                 {/* Features */}

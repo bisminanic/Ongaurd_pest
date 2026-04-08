@@ -24,12 +24,20 @@ import ServiceDetailPage from "./Pages/ServiceDetailPage";
 import Associates from "./components/Associates";
 import Blog from "./components/Blog";
 import BlogDetail from "./Pages/BlogDetails";
+import { Helmet } from "react-helmet";
 
 gsap.registerPlugin(ScrollTrigger);
 
 function HomePage() {
   return (
     <>
+      <Helmet>
+        <title>Pest Control in Trivandrum | OnGuard Pest Controls</title>
+        <meta
+          name="description"
+          content="Best pest control services in Trivandrum including termite, mosquito, cockroach and rodent control."
+        />
+      </Helmet>
       <Navbar />
       <Hero />
       <About />

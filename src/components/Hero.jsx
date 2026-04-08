@@ -71,14 +71,14 @@ export default function Hero() {
   const statsBar = useRef();
   const statItems = useRef([]);
   const cardRefs = useRef([]);
-useEffect(() => {
-  // Bootstrap 5 tooltip init
-  const tooltipEls = document.querySelectorAll('[data-bs-toggle="tooltip"]');
-  const tooltips = [...tooltipEls].map(
-    (el) => new window.bootstrap.Tooltip(el, { trigger: "hover" })
-  );
-  return () => tooltips.forEach((t) => t.dispose());
-}, []);
+  useEffect(() => {
+    // Bootstrap 5 tooltip init
+    const tooltipEls = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+    const tooltips = [...tooltipEls].map(
+      (el) => new window.bootstrap.Tooltip(el, { trigger: "hover" }),
+    );
+    return () => tooltips.forEach((t) => t.dispose());
+  }, []);
   /* ── Entry animation ───────────────────────────────────── */
   useEffect(() => {
     gsap.set([badge.current, subRef.current, subRef1.current, ctaRef.current], {
@@ -234,11 +234,11 @@ useEffect(() => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 
   const words = [
-    ["Kerala's", "#fff"],
-    ["#1", green],
+    ["Best", "#fff"],
     ["Pest", "#fff"],
     ["Control", "#fff"],
-    ["Service.", green],
+    ["in", "#fff"],
+    ["Trivandrum", green],
   ];
 
   const stats = [
@@ -514,9 +514,15 @@ margin-bottom: 17px !important;
       <section id="home" ref={secRef}>
         {/* ── BG ── */}
         <div ref={bgL1} className="hero-layer hero-bg" style={{ zIndex: 0 }}>
-          <img src={banner1} alt="OnGuard Kerala pest control technician" />
+          <img
+            src={banner1}
+            alt="Pest control service in Trivandrum by OnGuard technicians"
+          />
         </div>
-
+        <h2 style={{ display: "none" }}>
+          Pest Control Services in Trivandrum Kerala – Termite, Mosquito, Rodent
+          Control
+        </h2>
         {/* ── Vignette ── */}
         <div
           className="hero-layer"
@@ -718,15 +724,15 @@ margin-bottom: 17px !important;
 
             {/* Card 2 — Star Ratings */}
             <a
-               href="https://share.google/x6J8uG4oOYX1t0p7j"
-  target="_blank"
-  rel="noopener noreferrer"
-  style={{ textDecoration: "none" }}
-  data-bs-toggle="tooltip"
-  data-bs-placement="top"
-  data-bs-custom-class="og-review-tooltip"
-  title="Click to view our Google Reviews ↗"
->
+              href="https://share.google/x6J8uG4oOYX1t0p7j"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ textDecoration: "none" }}
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              data-bs-custom-class="og-review-tooltip"
+              title="Click to view our Google Reviews ↗"
+            >
               <div
                 ref={(el) => (cardRefs.current[1] = el)}
                 className="hc-card hc-rating fb hc-clickable"
@@ -863,10 +869,10 @@ margin-bottom: 17px !important;
               marginBottom: 44,
             }}
           >
-            Professional eco-friendly pest elimination across all of Kerala and
-            South Tamil Nadu. Govt. certified technicians, child &amp; pet-safe
-            treatments, guaranteed results — available 24 hours a day, every
-            day.
+            Looking for reliable pest control in Trivandrum? OnGuard Pest
+            Controls offers expert termite, mosquito, cockroach, and rodent
+            control services with eco-friendly and safe treatments across
+            Kerala.
           </p>
 
           {/* CTAs */}

@@ -260,10 +260,13 @@ export default function Strip2() {
           </div>
 
           <div className="s2w-div" />
-
+          <h3 style={{ display: "none" }}>
+            Affordable Pest Control Services in Trivandrum Kerala with Guarantee
+            and Free Re-Treatment
+          </h3>
           {/* Text */}
           <div className={`s2w-text${visible ? " in" : ""}`}>
-            <div className="s2w-eyebrow">Our Promise</div>
+            <div className="s2w-eyebrow">Pest Control Guarantee</div>
             <h3 className="s2w-headline">
               Pests return? We re-treat
               <br />
@@ -290,7 +293,7 @@ export default function Strip2() {
                 />
               </svg>
             </div>
-            Trusted by 10,000+ homes
+           Trusted pest control services in Trivandrum by 10,000+ homes
           </div>
 
           <div className="s2w-sep" />
@@ -316,7 +319,7 @@ export default function Strip2() {
                 <circle cx="7" cy="8" r="1" fill="#3ade6e" />
               </svg>
             </div>
-            Fully insured & certified
+            Certified pest control company in Kerala
           </div>
 
           <div className="s2w-sep" />

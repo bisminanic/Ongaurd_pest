@@ -13,35 +13,38 @@ import { BLOGS } from "../blogdata";
 gsap.registerPlugin(ScrollTrigger);
 
 const TAG_COLORS = {
-  "Cockroach Control":        { color: "#1a3a1a", bg: "rgba(91,199,40,.12)" },
-  "Pest Control":             { color: "#0a1628", bg: "rgba(10,22,40,.08)" },
-  "Pest Control Cost":        { color: "#2a1500", bg: "rgba(200,100,0,.1)" },
-  "Emergency Pest Control":   { color: "#2a0000", bg: "rgba(200,0,0,.08)" },
-  "Termite Control":          { color: "#1a0d00", bg: "rgba(150,80,0,.1)" },
-  "Bed Bug Control":          { color: "#1a001a", bg: "rgba(120,0,120,.08)" },
-  "Ant Control":              { color: "#0d1a00", bg: "rgba(60,120,0,.1)" },
-  "Commercial Pest Control":  { color: "#001a2a", bg: "rgba(0,60,120,.08)" },
-  "Rodent Control":           { color: "#1a0a00", bg: "rgba(150,60,0,.1)" },
-  "Mosquito Control":         { color: "#001a0d", bg: "rgba(0,120,60,.1)" },
+  "Cockroach Control": { color: "#1a3a1a", bg: "rgba(91,199,40,.12)" },
+  "Pest Control": { color: "#0a1628", bg: "rgba(10,22,40,.08)" },
+  "Pest Control Cost": { color: "#2a1500", bg: "rgba(200,100,0,.1)" },
+  "Emergency Pest Control": { color: "#2a0000", bg: "rgba(200,0,0,.08)" },
+  "Termite Control": { color: "#1a0d00", bg: "rgba(150,80,0,.1)" },
+  "Bed Bug Control": { color: "#1a001a", bg: "rgba(120,0,120,.08)" },
+  "Ant Control": { color: "#0d1a00", bg: "rgba(60,120,0,.1)" },
+  "Commercial Pest Control": { color: "#001a2a", bg: "rgba(0,60,120,.08)" },
+  "Rodent Control": { color: "#1a0a00", bg: "rgba(150,60,0,.1)" },
+  "Mosquito Control": { color: "#001a0d", bg: "rgba(0,120,60,.1)" },
 };
 
 /* ─── Card ───────────────────────────────────────────────────────────────── */
 function BlogCard({ blog }) {
   const navigate = useNavigate();
-  const tc = TAG_COLORS[blog.tag] || { color: "#0a1628", bg: "rgba(10,22,40,.08)" };
+  const tc = TAG_COLORS[blog.tag] || {
+    color: "#0a1628",
+    bg: "rgba(10,22,40,.08)",
+  };
 
   return (
-    <div
-      className="blg-card"
-      onClick={() => navigate(`/blog/${blog.slug}`)}
-    >
+    <div className="blg-card" onClick={() => navigate(`/blog/${blog.slug}`)}>
       <div className="blg-card-bar" />
       <div className="blg-card-body">
         <div className="blg-card-top">
           <span className="blg-emoji">{blog.emoji}</span>
           <div style={{ flex: 1 }}>
             <div className="blg-meta">
-              <span className="blg-tag" style={{ color: tc.color, background: tc.bg }}>
+              <span
+                className="blg-tag"
+                style={{ color: tc.color, background: tc.bg }}
+              >
                 {blog.tag}
               </span>
               <span className="blg-date">{blog.date}</span>
@@ -54,9 +57,12 @@ function BlogCard({ blog }) {
         </div>
         <button
           className="blg-btn"
-          onClick={(e) => { e.stopPropagation(); navigate(`/blog/${blog.slug}`); }}
+          onClick={(e) => {
+            e.stopPropagation();
+            navigate(`/blog/${blog.slug}`);
+          }}
         >
-          Learn More →
+          Read Full Guide →
         </button>
       </div>
     </div>
@@ -65,19 +71,22 @@ function BlogCard({ blog }) {
 
 /* ─── Section ────────────────────────────────────────────────────────────── */
 export default function Blog() {
-  const secRef   = useRef();
-  const headRef  = useRef();
-  const gridRef  = useRef();
+  const secRef = useRef();
+  const headRef = useRef();
+  const gridRef = useRef();
   const trackRef = useRef();
-  const dotsRef  = useRef([]);
+  const dotsRef = useRef([]);
   const location = useLocation();
 
   /* ── Header animation ── */
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.from(headRef.current.children, {
-        y: 28, autoAlpha: 0, stagger: 0.1,
-        duration: 0.7, ease: "power3.out",
+        y: 28,
+        autoAlpha: 0,
+        stagger: 0.1,
+        duration: 0.7,
+        ease: "power3.out",
         scrollTrigger: {
           trigger: headRef.current,
           start: "top 85%",
@@ -99,8 +108,10 @@ export default function Blog() {
       once: true,
       onEnter: () => {
         gsap.to(grid, {
-          y: 0, opacity: 1,
-          duration: 0.65, ease: "power3.out",
+          y: 0,
+          opacity: 1,
+          duration: 0.65,
+          ease: "power3.out",
           clearProps: "transform,opacity",
         });
       },
@@ -120,7 +131,7 @@ export default function Blog() {
       const itemWidth = items[0].offsetWidth + 16; // gap 16px
       const activeIndex = Math.min(
         Math.round(track.scrollLeft / itemWidth),
-        BLOGS.length - 1
+        BLOGS.length - 1,
       );
       dotsRef.current.forEach((dot, i) => {
         if (!dot) return;
@@ -142,7 +153,11 @@ export default function Blog() {
     const track = trackRef.current;
     if (!track) return;
     const items = track.querySelectorAll(".blg-carousel-item");
-    items[index]?.scrollIntoView({ behavior: "smooth", inline: "start", block: "nearest" });
+    items[index]?.scrollIntoView({
+      behavior: "smooth",
+      inline: "start",
+      block: "nearest",
+    });
   };
 
   return (
@@ -369,9 +384,11 @@ export default function Blog() {
           }
         }
       `}</style>
-
+      <h2 style={{ display: "none" }}>
+        Pest Control Blog in Trivandrum Kerala – Termite, Mosquito, Cockroach
+        Tips and Guides
+      </h2>
       <section className="blg-section" ref={secRef} id="blog">
-
         {/* Header */}
         <div className="blg-header" ref={headRef}>
           <div className="blg-eyebrow">
@@ -379,17 +396,25 @@ export default function Blog() {
             Knowledge Hub
           </div>
           <h2 className="blg-h2">
-            Expert Insights &amp; <span>Pest Control</span> Guides
+            Pest Control Tips &amp; <span> Guides in </span> Trivandrum Kerala
           </h2>
           <p className="blg-sub">
-            Helpful resources from our team — covering pest identification,
-            treatment methods, cost guides, and prevention tips for Kerala homes
-            and businesses.
+            Explore expert pest control tips, termite prevention guides,
+            mosquito control methods, and cost insights for homes and businesses
+            in Trivandrum Kerala.
           </p>
         </div>
 
         {/* Grid / Carousel */}
-        <div ref={gridRef} style={{ maxWidth: 1600, margin: "0 auto", position: "relative", zIndex: 1 }}>
+        <div
+          ref={gridRef}
+          style={{
+            maxWidth: 1600,
+            margin: "0 auto",
+            position: "relative",
+            zIndex: 1,
+          }}
+        >
           <div className="blg-track-wrapper">
             <div ref={trackRef} className="blg-carousel-track">
               {BLOGS.map((blog, i) => (
@@ -413,7 +438,6 @@ export default function Blog() {
             ))}
           </div>
         </div>
-
       </section>
     </>
   );

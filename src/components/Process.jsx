@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -343,16 +342,22 @@ export default function Process() {
       <section id="process" ref={secRef}>
         {/* L1 — bg photo */}
         <div ref={l1Ref} className="proc-layer" style={{ zIndex: 0 }}>
-          <img src={process} alt="" />
+          <img src={process} alt="Pest control process in Trivandrum Kerala" />
         </div>
-
+        <h2 style={{ display: "none" }}>
+          Pest Control Process in Trivandrum Kerala – Inspection, Treatment and
+          Prevention
+        </h2>
         {/* L2 — blend layer */}
         <div
           ref={l2Ref}
           className="proc-layer"
           style={{ zIndex: 1, mixBlendMode: "multiply", opacity: 0.45 }}
         >
-          <img src={IMG.processL2} alt="" />
+          <img
+            src={IMG.processL2}
+            alt="Professional pest control service workflow"
+          />
         </div>
 
         {/* Overlays */}
@@ -411,8 +416,9 @@ export default function Process() {
             </div>
             <div className="col-lg-6">
               <p className="proc-sub ms-lg-auto" style={{ marginBottom: 0 }}>
-                From your first call to a pest-free home — our streamlined
-                process ensures fast, professional results with zero hassle.
+                Our pest control process in Trivandrum ensures safe, effective,
+                and long-lasting solutions for termite, mosquito, cockroach, and
+                rodent problems using modern techniques.
               </p>
             </div>
           </div>

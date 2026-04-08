@@ -84,7 +84,7 @@ export default function Contact() {
   };
 
   const contactInfo = [
-    [icon1, "Call Us", "+91 79074 96956", "tel:+917907496956"],
+    [icon1, "Call Pest Control Experts", "+91 79074 96956", "tel:+917907496956"],
     [
       icon3,
       "Email",
@@ -103,7 +103,7 @@ export default function Contact() {
       "Sri Narasimha Shopping Complex\nNear Govt. Secretariat, Opp. YMCA Road\nStatue, Palayam\nThiruvananthapuram – 695001",
       "https://maps.google.com/?q=Narasimha+Shopping+Complex+Palayam+Thiruvananthapuram",
     ],
-    [icon4, "Hours", "Mon–Sun | Open 24 hours", null],
+    [icon4, "Hours", "Mon–Sun | 24/7 service available ", null],
   ];
   return (
     <>
@@ -167,7 +167,7 @@ export default function Contact() {
       <section id="contact" ref={secRef}>
         {/* L1 city photo */}
         <div ref={l1Ref} className="contact-layer" style={{ zIndex: 0 }}>
-          <img src={IMG.contactBg} alt="" />
+          <img src={IMG.contactBg} alt="Pest control service in Trivandrum Kerala" />
         </div>
 
         {/* L2 blended */}
@@ -176,7 +176,7 @@ export default function Contact() {
           className="contact-layer"
           style={{ zIndex: 1, mixBlendMode: "multiply", opacity: 0.4 }}
         >
-          <img src={IMG.contactL2} alt="" />
+       <img src={IMG.contactL2} alt="Professional pest control team working" />
         </div>
 
         <div className="contact-overlay" />
@@ -221,9 +221,9 @@ export default function Contact() {
                       letterSpacing: -0.8,
                     }}
                   >
-                    Book Your <span style={{ color: green }}>Free</span>
+                    Book Pest Control <span style={{ color: green }}>in </span>
                     <br />
-                    Inspection Today
+                    Trivandrum Today
                   </h2>
                   <p
                     style={{
@@ -234,10 +234,14 @@ export default function Contact() {
                       margin: "0 0 15px",
                     }}
                   >
-                    Pests multiply fast — don't wait. Our experts inspect at
-                    zero cost and give an honest quote with no obligation.
+                    Looking for pest control in Trivandrum? Book a free
+                    inspection today. We provide termite control, mosquito
+                    control, cockroach removal, and rodent control services with
+                    safe and effective solutions.
                   </p>
-
+<h2 style={{ display: "none" }}>
+Pest Control Contact in Trivandrum Kerala – Book Free Inspection for Termite, Mosquito, Cockroach and Rodent Control
+</h2>
                   {contactInfo.map(([ic, l, v, href], i) => (
                     <div
                       key={i}
@@ -438,7 +442,7 @@ export default function Contact() {
                           );
                         }}
                       >
-                        Book Free Inspection Now
+                       Book Free Pest Control Inspection
                       </button>
                       <p
                         style={{

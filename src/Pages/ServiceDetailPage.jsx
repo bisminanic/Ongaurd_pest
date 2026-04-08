@@ -8,7 +8,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SERVICE_DATA } from "../service";
-
+import { Helmet } from "react-helmet";
 gsap.registerPlugin(ScrollTrigger);
 
 export default function ServiceDetailPage() {
@@ -54,50 +54,78 @@ export default function ServiceDetailPage() {
 
   if (!service) {
     return (
-      <div
-        style={{
-          minHeight: "100vh",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          background: "#f8f9f4",
-        }}
-      >
-        <div style={{ textAlign: "center" }}>
-          <div style={{ fontSize: 64 }}>🔍</div>
-          <h2
-            style={{
-              fontFamily: "'Lato',sans-serif",
-              color: "#0a1628",
-              marginTop: 16,
-            }}
-          >
-            Service Not Found
-          </h2>
-          <button
-            onClick={() => navigate("/#services")}
-            style={{
-              marginTop: 24,
-              background: "#5bc728",
-              color: "#fff",
-              border: "none",
-              padding: "14px 32px",
-              borderRadius: 50,
-              fontFamily: "'DM Sans',sans-serif",
-              fontWeight: 700,
-              cursor: "pointer",
-              fontSize: 15,
-            }}
-          >
-            ← Home 
-          </button>
+      <>
+        
+        <div
+          style={{
+            minHeight: "100vh",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            background: "#f8f9f4",
+          }}
+        >
+          <div style={{ textAlign: "center" }}>
+            <div style={{ fontSize: 64 }}>🔍</div>
+            <h2
+              style={{
+                fontFamily: "'Lato',sans-serif",
+                color: "#0a1628",
+                marginTop: 16,
+              }}
+            >
+              Service Not Found
+            </h2>
+            <button
+              onClick={() => navigate("/#services")}
+              style={{
+                marginTop: 24,
+                background: "#5bc728",
+                color: "#fff",
+                border: "none",
+                padding: "14px 32px",
+                borderRadius: 50,
+                fontFamily: "'DM Sans',sans-serif",
+                fontWeight: 700,
+                cursor: "pointer",
+                fontSize: 15,
+              }}
+            >
+              ← Home
+            </button>
+          </div>
         </div>
-      </div>
+      </>
     );
   }
 
   return (
     <>
+     
+    <Helmet>
+      <title>{service.title} in Trivandrum | OnGuard Pest Controls</title>
+
+      <meta
+        name="description"
+        content={`${service.title} services in Trivandrum Kerala. Professional pest control solutions with safe and effective treatment.`}
+      />
+
+      <link
+        rel="canonical"
+        href={`https://onguardpestcontrols.com/services/${slug}`}
+      />
+
+      {/* Open Graph (BONUS 🔥) */}
+      <meta property="og:title" content={service.title} />
+      <meta
+        property="og:description"
+        content={`Professional ${service.title} in Trivandrum.`}
+      />
+      <meta
+        property="og:url"
+        content={`https://onguardpestcontrols.com/services/${slug}`}
+      />
+    </Helmet>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;700&display=swap');
 
@@ -376,7 +404,7 @@ export default function ServiceDetailPage() {
                 );
               }}
             >
-             Get Free Inspection →
+              Get Free Inspection →
             </button>
           </div>
         </div>

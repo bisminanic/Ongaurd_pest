@@ -100,7 +100,7 @@ export default function Footer() {
         "Sri Narasimha Shopping Complex\nOpp. YMCA Road, Statue, Palayam\nThiruvananthapuram – 695001",
       href: "https://maps.google.com/?q=Narasimha+Shopping+Complex+Palayam+Thiruvananthapuram",
     },
-    { ic: icon4, label: "Mon–Sun | Open 24 hours", href: null },
+    { ic: icon4, label: "Mon–Sun | 24/7 service available", href: null },
   ];
 
   const socials = [

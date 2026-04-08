@@ -12,15 +12,15 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { navy, green, muted, off } from "../constants";
 import { TITLE_TO_SLUG } from "../service";
-import icon1  from "../Assets/rat.jpg";
-import icon2  from "../Assets/cockroach.png";
-import icon3  from "../Assets/bedbug.jpg";
-import icon4  from "../Assets/mosquito.jpg";
-import icon5  from "../Assets/housefly.jpg";
-import icon6  from "../Assets/termit.png";
-import icon7  from "../Assets/wood.jpg";
-import icon8  from "../Assets/honeybee.jpg";
-import icon9  from "../Assets/snake.jpg";
+import icon1 from "../Assets/rat.jpg";
+import icon2 from "../Assets/cockroach.png";
+import icon3 from "../Assets/bedbug.jpg";
+import icon4 from "../Assets/mosquito.jpg";
+import icon5 from "../Assets/housefly.jpg";
+import icon6 from "../Assets/termit.png";
+import icon7 from "../Assets/wood.jpg";
+import icon8 from "../Assets/honeybee.jpg";
+import icon9 from "../Assets/snake.jpg";
 import icon10 from "../Assets/deepcleaning.jpg";
 import icon11 from "../Assets/distincfection.jpg";
 import icon12 from "../Assets/terminate.jpg";
@@ -29,18 +29,90 @@ import termite from "../Assets/termite.png";
 gsap.registerPlugin(ScrollTrigger);
 
 const SERVICES = [
-  { t: "Rodent Control Services",      d: "Effective removal of rats and mice using safe Kerala-approved methods.",                                          img: icon1,  ic: "🐭",   type: "icon"  },
-  { t: "Cockroach Control Services",   d: "Odorless and eco-friendly cockroach elimination for homes and offices.",                                         img: icon2,  ic: "🪳",   type: "icon"  },
-  { t: "Bed Bug Control Services",     d: "Advanced heat and chemical treatment for complete bed bug removal.",                                             img: icon3,  ic: "🛏️",  type: "icon"  },
-  { t: "Mosquito Control Services",    d: "Fogging and larval treatment to prevent mosquito breeding.",                                                     img: icon4,  ic: "🦟",   type: "icon"  },
-  { t: "Housefly Services",            d: "Effective control solutions for flies in homes and commercial spaces.",                                          img: icon5,  ic: "🪰",   type: "icon"  },
-  { t: "Termite Control Services",     d: "Long-lasting anti-termite protection for buildings and furniture.",                                              img: icon6,  ic: termite, type: "image" },
-  { t: "Wood Borer Control",           d: "Specialized treatment to protect wooden furniture from borers.",                                                 img: icon7,  ic: "🪵",   type: "icon"  },
-  { t: "Honey Bee Removal Service",    d: "Safe relocation of honey bees without harming the ecosystem.",                                                  img: icon8,  ic: "🐝",   type: "icon"  },
-  { t: "Snake Control Service",        d: "Professional snake rescue and relocation services across Kerala.",                                               img: icon9,  ic: "🐍",   type: "icon"  },
-  { t: "Deep Cleaning Services",       d: "Complete deep cleaning for homes, offices, and commercial areas.",                                               img: icon10, ic: "🧼",   type: "icon"  },
-  { t: "Disinfection & Sanitization",  d: "Professional sanitization services to eliminate germs, bacteria, and viruses from your space.",                  img: icon11, ic: "🧴",   type: "icon"  },
-  { t: "Ant Control Services",         d: "Effective solutions to eliminate ants and prevent infestations in residential and commercial areas.",             img: icon12, ic: "🐜",   type: "icon"  },
+  {
+    t: "Rodent Control Services",
+    d: "Professional rodent control services in Trivandrum to eliminate rats and mice using safe and effective pest control methods.",
+    img: icon1,
+    ic: "🐭",
+    type: "icon",
+  },
+  {
+    t: "Cockroach Control Services",
+    d: "Odorless and eco-friendly cockroach elimination for homes and offices.",
+    img: icon2,
+    ic: "🪳",
+    type: "icon",
+  },
+  {
+    t: "Bed Bug Control Services",
+    d: "Advanced heat and chemical treatment for complete bed bug removal.",
+    img: icon3,
+    ic: "🛏️",
+    type: "icon",
+  },
+  {
+    t: "Mosquito Control Services",
+    d: "Expert mosquito control services in Trivandrum using fogging and larval treatment to prevent breeding and ensure a safe environment.",
+    img: icon4,
+    ic: "🦟",
+    type: "icon",
+  },
+  {
+    t: "Housefly Services",
+    d: "Effective control solutions for flies in homes and commercial spaces.",
+    img: icon5,
+    ic: "🪰",
+    type: "icon",
+  },
+  {
+    t: "Termite Control Services",
+    d: "Long-lasting anti-termite protection for buildings and furniture.",
+    img: icon6,
+    ic: termite,
+    type: "image",
+  },
+  {
+    t: "Wood Borer Control",
+    d: "Specialized treatment to protect wooden furniture from borers.",
+    img: icon7,
+    ic: "🪵",
+    type: "icon",
+  },
+  {
+    t: "Honey Bee Removal Service",
+    d: "Safe relocation of honey bees without harming the ecosystem.",
+    img: icon8,
+    ic: "🐝",
+    type: "icon",
+  },
+  {
+    t: "Snake Control Service",
+    d: "Professional snake rescue and relocation services across Kerala.",
+    img: icon9,
+    ic: "🐍",
+    type: "icon",
+  },
+  {
+    t: "Deep Cleaning Services",
+    d: "Complete deep cleaning for homes, offices, and commercial areas.",
+    img: icon10,
+    ic: "🧼",
+    type: "icon",
+  },
+  {
+    t: "Disinfection & Sanitization",
+    d: "Professional sanitization services to eliminate germs, bacteria, and viruses from your space.",
+    img: icon11,
+    ic: "🧴",
+    type: "icon",
+  },
+  {
+    t: "Ant Control Services",
+    d: "Effective solutions to eliminate ants and prevent infestations in residential and commercial areas.",
+    img: icon12,
+    ic: "🐜",
+    type: "icon",
+  },
 ];
 
 /* ─── Inject CSS once ────────────────────────────────────────────────────── */
@@ -210,15 +282,22 @@ function SvcCard({ s }) {
     e.stopPropagation();
     const slug = TITLE_TO_SLUG[s.t];
     if (slug) navigate(`/services/${slug}`);
-    else document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+    else
+      document
+        .getElementById("contact")
+        ?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
     <div className="svc-card">
+      <h2 style={{ display: "none" }}>
+        Pest Control Services in Trivandrum Kerala including Termite, Mosquito,
+        Cockroach, Rodent Control
+      </h2>
       <div className="svc-card__img-wrap">
         <img
           src={s.img}
-          alt={s.t}
+          alt={`${s.t} in Trivandrum Kerala`}
           loading="eager"
           decoding="async"
           className="svc-card__img"
@@ -229,7 +308,7 @@ function SvcCard({ s }) {
           {s.type === "image" ? (
             <img
               src={s.ic}
-              alt={s.t}
+              alt={`${s.t} in Trivandrum Kerala`}
               style={{ width: 28, height: 28, objectFit: "contain" }}
             />
           ) : (
@@ -239,7 +318,7 @@ function SvcCard({ s }) {
         <h3 className="svc-card__title">{s.t}</h3>
         <p className="svc-card__desc">{s.d}</p>
         <button className="svc-card__btn" onClick={handleLearnMore}>
-          Learn More <span>→</span>
+         Learn More About Service<span>→</span>
         </button>
       </div>
     </div>
@@ -249,10 +328,10 @@ function SvcCard({ s }) {
 /* ─── Main Section ───────────────────────────────────────────────────────── */
 export default function Services() {
   const sectionRef = useRef();
-  const headerRef  = useRef();
-  const gridRef    = useRef();
-  const trackRef   = useRef();
-  const dotsRef    = useRef([]);
+  const headerRef = useRef();
+  const gridRef = useRef();
+  const trackRef = useRef();
+  const dotsRef = useRef([]);
 
   /* Inject styles */
   useEffect(() => {
@@ -271,7 +350,7 @@ export default function Services() {
       const itemWidth = items[0].offsetWidth + 14; // gap = 14px
       const activeIndex = Math.min(
         Math.round(track.scrollLeft / itemWidth),
-        SERVICES.length - 1
+        SERVICES.length - 1,
       );
       dotsRef.current.forEach((dot, i) => {
         if (!dot) return;
@@ -306,7 +385,7 @@ export default function Services() {
   /* ── Entrance animations — after loaderDone ── */
   useEffect(() => {
     const header = headerRef.current;
-    const grid   = gridRef.current;
+    const grid = gridRef.current;
     if (!header || !grid) return;
 
     let st1, st2;
@@ -351,8 +430,7 @@ export default function Services() {
     }
 
     const alreadyLoaded =
-      document.readyState === "complete" &&
-      document.body.style.overflow === "";
+      document.readyState === "complete" && document.body.style.overflow === "";
 
     let timer;
     if (alreadyLoaded) {
@@ -375,12 +453,21 @@ export default function Services() {
       id="services"
       style={{ padding: "80px 60px 100px", background: off }}
     >
-      <div className="svc-section-inner" style={{ maxWidth: 1400, margin: "0 auto" }}>
-
+      <div
+        className="svc-section-inner"
+        style={{ maxWidth: 1400, margin: "0 auto" }}
+      >
         {/* Header */}
         <div ref={headerRef} className="mb-5">
           <div className="d-flex align-items-center gap-2 mb-3">
-            <div style={{ width: 44, height: 3, background: green, borderRadius: 2 }} />
+            <div
+              style={{
+                width: 44,
+                height: 3,
+                background: green,
+                borderRadius: 2,
+              }}
+            />
             <span
               style={{
                 fontFamily: "'Lato', sans-serif",
@@ -404,8 +491,7 @@ export default function Services() {
               lineHeight: 1.04,
             }}
           >
-            Complete Pest Control{" "}
-            <span style={{ color: green }}>Services</span>
+            Complete Pest Control <span style={{ color: green }}>Services</span>
           </h2>
           <p
             style={{
@@ -447,7 +533,6 @@ export default function Services() {
             ))}
           </div>
         </div>
-
       </div>
     </section>
   );
